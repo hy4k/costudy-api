@@ -1,0 +1,32 @@
+# Ignore local environment files
+.env
+.env.*
+!.env.example
+
+# Ignore node_modules (we install in Docker)
+node_modules/
+
+# Ignore development files
+*.log
+.git/
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+*.md
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore test files
+__tests__/
+*.test.js
+*.spec.js
+coverage/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
