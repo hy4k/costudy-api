@@ -98,36 +98,36 @@ async function embedOne(text) {
   return resp.data[0].embedding;
 }
 
-async function retrieveContext({ queryEmbedding, topK = DEFAULT_TOPK, threshold = DEFAULT_MATCH_THRESHOLD, filterDoc = null }) {
-  // Try calling match_documents with filter_document_id if your function supports it.
-  // If not, fallback to calling without it.
+async function retrieveContext({ 
+  queryEmbedding, 
+  topK = DEFAULT_TOPK, 
+  threshold = DEFAULT_MATCH_THRESHOLD, 
+  filterDoc = null,
+  filterChunkType = null  // NEW: 'mcq_question' | 'mcq_answer' | 'essay' | 'other' | null
+}) {
   let data, error;
 
-  const payloadWithFilter = {
+  const payload = {
     query_embedding: queryEmbedding,
     match_threshold: threshold,
     match_count: topK,
-    filter_document_id: filterDoc,
+    filter_document_id: filterDoc || null,
+    filter_chunk_type: filterChunkType || null,
   };
 
-  const payloadNoFilter = {
-    query_embedding: queryEmbedding,
-    match_threshold: threshold,
-    match_count: topK,
-  };
-
-  // Attempt with filter first only if filterDoc is provided
-  if (filterDoc) {
-    ({ data, error } = await supabase.rpc("match_documents", payloadWithFilter));
-    if (error) {
-      // If function does not accept filter_document_id, retry without it
-      const msg = String(error.message || "");
-      if (msg.includes("filter_document_id") || msg.includes("does not exist")) {
-        ({ data, error } = await supabase.rpc("match_documents", payloadNoFilter));
-      }
+  ({ data, error } = await supabase.rpc("match_documents", payload));
+  
+  // Fallback for older RPC without new params
+  if (error) {
+    const msg = String(error.message || "");
+    if (msg.includes("filter_") || msg.includes("does not exist")) {
+      console.log("[RAG] Falling back to basic match_documents");
+      ({ data, error } = await supabase.rpc("match_documents", {
+        query_embedding: queryEmbedding,
+        match_threshold: threshold,
+        match_count: topK,
+      }));
     }
-  } else {
-    ({ data, error } = await supabase.rpc("match_documents", payloadNoFilter));
   }
 
   if (error) throw error;
@@ -166,10 +166,10 @@ function jsonError(res, status, message, details) {
 // ---- routes ----
 app.get("/health", (_req, res) => res.json({ ok: true, env: NODE_ENV }));
 
-// Optional: raw vector search endpoint (useful to debug frontend)
+// Vector search endpoint with chunk_type filtering
 app.post("/api/search", async (req, res) => {
   try {
-    const { query, topK, threshold, filterDoc } = req.body || {};
+    const { query, topK, threshold, filterDoc, chunkType } = req.body || {};
     if (!query || typeof query !== "string") return jsonError(res, 400, "query required");
 
     const qEmbed = await embedOne(query);
@@ -178,6 +178,7 @@ app.post("/api/search", async (req, res) => {
       topK: typeof topK === "number" ? topK : DEFAULT_TOPK,
       threshold: typeof threshold === "number" ? threshold : DEFAULT_MATCH_THRESHOLD,
       filterDoc: typeof filterDoc === "string" ? filterDoc : null,
+      filterChunkType: typeof chunkType === "string" ? chunkType : null,
     });
 
     res.json({
@@ -186,6 +187,8 @@ app.post("/api/search", async (req, res) => {
         document_id: h.document_id,
         page_number: h.page_number,
         chunk_index: h.chunk_index,
+        chunk_type: h.chunk_type || 'other',
+        question_no: h.question_no || null,
         similarity: h.similarity,
         content: h.content,
       })),
@@ -198,7 +201,7 @@ app.post("/api/search", async (req, res) => {
 
 app.post("/api/ask-cma", async (req, res) => {
   try {
-    const { message, subject, mode, history, activeContext, filterDoc } = req.body || {};
+    const { message, subject, mode, history, activeContext, filterDoc, chunkType } = req.body || {};
 
     if (!message || typeof message !== "string") {
       return jsonError(res, 400, "message required");
@@ -210,12 +213,13 @@ app.post("/api/ask-cma", async (req, res) => {
     // 1) embed question
     const qEmbed = await embedOne(userMsg);
 
-    // 2) retrieve context
+    // 2) retrieve context with optional chunk_type filter
     const hits = await retrieveContext({
       queryEmbedding: qEmbed,
       topK: DEFAULT_TOPK,
       threshold: DEFAULT_MATCH_THRESHOLD,
       filterDoc: typeof filterDoc === "string" ? filterDoc : null,
+      filterChunkType: typeof chunkType === "string" ? chunkType : null,
     });
 
     const contextBlock = buildContextBlock(hits, 12000);
@@ -255,6 +259,8 @@ app.post("/api/ask-cma", async (req, res) => {
         document_id: h.document_id,
         page_number: h.page_number,
         chunk_index: h.chunk_index,
+        chunk_type: h.chunk_type || 'other',
+        question_no: h.question_no || null,
         similarity: h.similarity,
       })),
     });
@@ -282,6 +288,146 @@ app.post("/api/summarize", async (req, res) => {
   } catch (e) {
     console.error(e);
     return jsonError(res, 500, "summarize error", String(e?.message || e));
+  }
+});
+
+// ---- MCQ Practice Endpoint ----
+// Fetches MCQ questions from the knowledge base for practice sessions
+app.post("/api/mcq/practice", async (req, res) => {
+  try {
+    const { topic, count = 5, part } = req.body || {};
+    
+    if (!topic || typeof topic !== "string") {
+      return jsonError(res, 400, "topic required");
+    }
+
+    const qEmbed = await embedOne(`MCQ practice questions about ${topic}`);
+    
+    // Fetch MCQ questions specifically
+    const hits = await retrieveContext({
+      queryEmbedding: qEmbed,
+      topK: count * 2, // Fetch extra to filter
+      threshold: 0.65,
+      filterChunkType: "mcq_question",
+    });
+
+    // Also fetch corresponding answers
+    const answerHits = await retrieveContext({
+      queryEmbedding: qEmbed,
+      topK: count * 2,
+      threshold: 0.65,
+      filterChunkType: "mcq_answer",
+    });
+
+    res.json({
+      ok: true,
+      questions: hits.slice(0, count).map((h) => ({
+        id: h.id,
+        document_id: h.document_id,
+        question_no: h.question_no,
+        content: h.content,
+        page_number: h.page_number,
+      })),
+      answers: answerHits.map((a) => ({
+        document_id: a.document_id,
+        question_no: a.question_no,
+        content: a.content,
+      })),
+    });
+  } catch (e) {
+    console.error(e);
+    return jsonError(res, 500, "MCQ fetch error", String(e?.message || e));
+  }
+});
+
+// ---- Essay Evaluation Endpoint ----
+// Evaluates student essays using RAG context for accurate grading
+app.post("/api/essay/evaluate", async (req, res) => {
+  try {
+    const { essay, topic, subject } = req.body || {};
+    
+    if (!essay || typeof essay !== "string") {
+      return jsonError(res, 400, "essay required");
+    }
+
+    // Fetch relevant concept material for grading reference
+    const topicQuery = topic || essay.slice(0, 200);
+    const qEmbed = await embedOne(`CMA US concepts and rubric for ${topicQuery}`);
+    
+    const conceptHits = await retrieveContext({
+      queryEmbedding: qEmbed,
+      topK: 8,
+      threshold: 0.7,
+    });
+
+    const conceptBlock = buildContextBlock(conceptHits, 8000);
+
+    const evalPrompt = `
+You are an expert CMA US essay grader following IMA official rubrics.
+
+GRADING CRITERIA:
+1. Accuracy (40%): Correct application of CMA concepts
+2. Completeness (25%): All relevant aspects addressed
+3. Clarity (20%): Clear structure and explanation
+4. Professional Terminology (15%): Appropriate use of CMA vocabulary
+
+REFERENCE MATERIAL:
+${conceptBlock}
+
+STUDENT ESSAY:
+${sanitizeText(essay).slice(0, 6000)}
+
+Provide:
+1. Overall Score (0-100)
+2. Breakdown by criteria
+3. Strengths (2-3 points)
+4. Areas for Improvement (2-3 points)
+5. Model Answer Key Points (what should have been included)
+`;
+
+    const completion = await openai.chat.completions.create({
+      model: CHAT_MODEL,
+      messages: [
+        { role: "system", content: "You are a rigorous but fair CMA US essay evaluator." },
+        { role: "user", content: evalPrompt },
+      ],
+      temperature: 0.2,
+    });
+
+    res.json({
+      ok: true,
+      evaluation: completion.choices?.[0]?.message?.content || "Evaluation failed.",
+      sources: conceptHits.map((h) => ({
+        document_id: h.document_id,
+        page_number: h.page_number,
+      })),
+    });
+  } catch (e) {
+    console.error(e);
+    return jsonError(res, 500, "Essay evaluation error", String(e?.message || e));
+  }
+});
+
+// ---- Chunk Stats Endpoint (for admin/debugging) ----
+app.get("/api/stats/chunks", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("document_sections")
+      .select("chunk_type")
+      .limit(50000);
+    
+    if (error) throw error;
+
+    const stats = (data || []).reduce((acc, row) => {
+      const type = row.chunk_type || "other";
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+
+    res.json({ ok: true, stats, total: data?.length || 0 });
+  } catch (e) {
+    console.error(e);
+    return jsonError(res, 500, "Stats error", String(e?.message || e));
   }
 });
 
