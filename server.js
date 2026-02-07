@@ -166,6 +166,16 @@ function jsonError(res, status, message, details) {
 // ---- routes ----
 app.get("/health", (_req, res) => res.json({ ok: true, env: NODE_ENV }));
 
+// Debug endpoint to verify config
+app.get("/debug/config", (_req, res) => res.json({
+  embedModel: EMBED_MODEL,
+  chatModel: CHAT_MODEL,
+  matchThreshold: DEFAULT_MATCH_THRESHOLD,
+  topK: DEFAULT_TOPK,
+  supabaseUrl: SUPABASE_URL ? "set" : "missing",
+  openaiKey: OPENAI_API_KEY ? "set" : "missing",
+}));
+
 // Vector search endpoint with chunk_type filtering
 app.post("/api/search", async (req, res) => {
   try {
