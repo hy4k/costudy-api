@@ -17,7 +17,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const EMBED_MODEL = process.env.EMBED_MODEL || "text-embedding-3-small"; // 1536 dims
 const CHAT_MODEL = process.env.CHAT_MODEL || "gpt-4.1-mini";
 
-const DEFAULT_MATCH_THRESHOLD = Number(process.env.MATCH_THRESHOLD || 0.75);
+const DEFAULT_MATCH_THRESHOLD = Number(process.env.MATCH_THRESHOLD || 0.5);
 const DEFAULT_TOPK = Number(process.env.TOPK || 10);
 
 // ---- required env checks (fail fast) ----
