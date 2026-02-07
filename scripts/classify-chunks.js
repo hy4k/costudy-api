@@ -1,24 +1,25 @@
 /**
- * Chunk Classification Utility
+ * Chunk Classification Script
  * 
- * This script classifies existing chunks in document_sections
- * into: mcq_question, mcq_answer, essay, other
+ * Analyzes document_sections content and updates chunk_type field:
+ * - mcq_question: Multiple choice questions (A/B/C/D pattern)
+ * - mcq_answer: Answer explanations for MCQs
+ * - essay: Essay-style content
+ * - other: Everything else
  * 
- * Run: node scripts/classify-chunks.js
+ * Also extracts question_no where possible.
  * 
- * Environment variables required:
- * - SUPABASE_URL
- * - SUPABASE_SERVICE_ROLE_KEY
+ * Usage: node scripts/classify-chunks.js [--dry-run] [--limit=1000]
  */
 
-import "dotenv/config";
-import { createClient } from "@supabase/supabase-js";
+import 'dotenv/config';
+import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-  console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+  console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
   process.exit(1);
 }
 
@@ -26,143 +27,204 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
-// Classification patterns
-const MCQ_QUESTION_PATTERNS = [
-  /^(?:Q\.?|Question\s*)?\d+[.\):]\s*[A-Z]/i,           // "1. What is..." or "Q1. What..."
-  /^(?:Q\.?|Question\s*)?#?\d+[.\s]+(?:Which|What|How|Why|When|Where)/i,
-  /^\d+\.\s+.+\?/,                                        // "1. ... ?"
-  /^(?:MCQ|Multiple Choice)\s*#?\d+/i,
-];
+// Parse CLI args
+const args = process.argv.slice(2);
+const DRY_RUN = args.includes('--dry-run');
+const limitArg = args.find(a => a.startsWith('--limit='));
+const BATCH_LIMIT = limitArg ? parseInt(limitArg.split('=')[1]) : 5000;
+const BATCH_SIZE = 100;
 
-const MCQ_ANSWER_PATTERNS = [
-  /^\s*[A-D][.\)]\s+\w/,                                  // "A. Something" or "A) Something"
-  /(?:correct\s*)?answer[:\s]*[A-D]/i,                    // "Answer: B"
-  /^(?:Option\s*)?[A-D][:\s]/i,
-  /solution[:\s]/i,
-  /^(?:Explanation|Rationale)[:\s]/i,
-];
-
-const ESSAY_PATTERNS = [
-  /essay\s*(?:question|response|answer)/i,
-  /^(?:Essay|Written Response|Short Answer)\s*#?\d*/i,
-  /in\s+\d+[-\s]*\d*\s*words/i,                           // "in 150-200 words"
-  /discuss\s+(?:in detail|briefly)/i,
-  /explain\s+(?:the\s+)?(?:concept|process|importance)/i,
-];
-
-function classifyChunk(content) {
-  const text = (content || "").trim();
+/**
+ * MCQ Question patterns:
+ * - Has A. B. C. D. or a) b) c) d) choices
+ * - Contains question mark before choices
+ * - Often starts with a number or "Question"
+ */
+function isMCQQuestion(content) {
+  const c = content.toLowerCase();
   
-  if (!text || text.length < 10) {
-    return { chunk_type: "other", question_no: null };
-  }
-
-  // Check for MCQ Question
-  for (const pattern of MCQ_QUESTION_PATTERNS) {
-    if (pattern.test(text)) {
-      const match = text.match(/^(?:Q\.?|Question\s*)?#?(\d+)/i);
-      return {
-        chunk_type: "mcq_question",
-        question_no: match ? match[1] : null,
-      };
-    }
-  }
-
-  // Check for MCQ Answer
-  for (const pattern of MCQ_ANSWER_PATTERNS) {
-    if (pattern.test(text)) {
-      // Try to extract question number from context
-      const match = text.match(/(?:question|Q)\s*#?(\d+)/i);
-      return {
-        chunk_type: "mcq_answer",
-        question_no: match ? match[1] : null,
-      };
-    }
-  }
-
-  // Check for Essay content
-  for (const pattern of ESSAY_PATTERNS) {
-    if (pattern.test(text)) {
-      return { chunk_type: "essay", question_no: null };
-    }
-  }
-
-  return { chunk_type: "other", question_no: null };
+  // Must have multiple choice indicators
+  const hasChoices = /\b[a-d]\s*[.)]\s*\w/i.test(content) || 
+                     /\b(option|choice)\s*[a-d]/i.test(c);
+  
+  // Should have question-like content
+  const hasQuestion = content.includes('?') || 
+                      /\b(which|what|how|when|where|who|why|calculate|determine|identify|select)\b/i.test(c);
+  
+  // Check for typical MCQ structure (4 options)
+  const optionMatches = content.match(/\b[A-D]\s*[.)]/g) || [];
+  const hasMultipleOptions = optionMatches.length >= 3;
+  
+  return (hasChoices || hasMultipleOptions) && hasQuestion;
 }
 
-async function classifyAllChunks(batchSize = 500, dryRun = false) {
-  console.log(`Starting chunk classification (dryRun: ${dryRun})...`);
+/**
+ * MCQ Answer patterns:
+ * - Contains "correct answer" or "answer is"
+ * - Has explanation with "because", "rationale", "explanation"
+ * - References specific choice letter
+ */
+function isMCQAnswer(content) {
+  const c = content.toLowerCase();
+  
+  // Direct answer indicators
+  const hasAnswerIndicator = /\b(correct\s*(answer|choice|option)|answer\s*(is|:)|rationale|explanation\s*for)/i.test(c);
+  
+  // Choice reference with explanation
+  const hasChoiceExplanation = /\b(choice|option)\s*[a-d]\s*(is|was|would be)\s*(correct|incorrect|wrong)/i.test(c);
+  
+  // Common answer patterns
+  const hasAnswerPattern = /\b(the answer is|correct response|right answer)\b/i.test(c);
+  
+  return hasAnswerIndicator || hasChoiceExplanation || hasAnswerPattern;
+}
+
+/**
+ * Essay patterns:
+ * - Longer form content without MCQ structure
+ * - Contains essay keywords
+ * - Descriptive/analytical content
+ */
+function isEssay(content) {
+  const c = content.toLowerCase();
+  
+  // Essay-specific keywords
+  const hasEssayKeywords = /\b(discuss|explain in detail|describe|analyze|evaluate|compare and contrast|essay|written response)\b/i.test(c);
+  
+  // Longer content without MCQ markers
+  const isLongForm = content.length > 500 && !isMCQQuestion(content) && !isMCQAnswer(content);
+  
+  // Has paragraph structure
+  const hasParagraphs = (content.match(/\n\n/g) || []).length >= 2;
+  
+  return hasEssayKeywords || (isLongForm && hasParagraphs);
+}
+
+/**
+ * Extract question number from content
+ * Patterns: Q.1, Q1, Question 1, #1, 1., etc.
+ */
+function extractQuestionNo(content) {
+  const patterns = [
+    /\bQ\.?\s*(\d+)/i,              // Q.1 or Q1
+    /\bQuestion\s*#?\s*(\d+)/i,     // Question 1 or Question #1
+    /^\s*(\d+)\s*[.)]/m,            // 1. or 1) at start of line
+    /\bID:\s*\w+\s*(\d+\.\d+)/i,    // ID: CMA 693 3.16
+    /\b(\d+\.\d+)\s*\(/,            // 3.16 (Topic:
+  ];
+  
+  for (const pattern of patterns) {
+    const match = content.match(pattern);
+    if (match) {
+      return match[1];
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Classify a single chunk
+ */
+function classifyChunk(content) {
+  if (!content || content.length < 10) {
+    return { chunk_type: 'other', question_no: null };
+  }
+  
+  let chunk_type = 'other';
+  
+  if (isMCQQuestion(content)) {
+    chunk_type = 'mcq_question';
+  } else if (isMCQAnswer(content)) {
+    chunk_type = 'mcq_answer';
+  } else if (isEssay(content)) {
+    chunk_type = 'essay';
+  }
+  
+  const question_no = extractQuestionNo(content);
+  
+  return { chunk_type, question_no };
+}
+
+/**
+ * Process chunks in batches
+ */
+async function classifyAllChunks() {
+  console.log(`\n🔍 CMA Chunk Classification Script`);
+  console.log(`   Mode: ${DRY_RUN ? 'DRY RUN (no updates)' : 'LIVE'}`);
+  console.log(`   Limit: ${BATCH_LIMIT} chunks\n`);
   
   let offset = 0;
   let totalProcessed = 0;
   let stats = { mcq_question: 0, mcq_answer: 0, essay: 0, other: 0 };
-
-  while (true) {
-    // Fetch batch of unclassified chunks
+  
+  while (totalProcessed < BATCH_LIMIT) {
+    // Fetch batch
     const { data: chunks, error } = await supabase
-      .from("document_sections")
-      .select("id, content, chunk_type")
-      .or("chunk_type.is.null,chunk_type.eq.other")
-      .range(offset, offset + batchSize - 1);
-
-    if (error) {
-      console.error("Fetch error:", error);
-      break;
-    }
-
-    if (!chunks || chunks.length === 0) {
-      console.log("No more chunks to process.");
-      break;
-    }
-
-    console.log(`Processing batch: ${offset} - ${offset + chunks.length}`);
-
-    const updates = [];
+      .from('document_sections')
+      .select('id, content, chunk_type')
+      .is('chunk_type', null)  // Only unclassified
+      .order('id')
+      .range(offset, offset + BATCH_SIZE - 1);
     
+    if (error) {
+      console.error('Fetch error:', error);
+      break;
+    }
+    
+    if (!chunks || chunks.length === 0) {
+      console.log('No more unclassified chunks.');
+      break;
+    }
+    
+    // Classify each chunk
+    const updates = [];
     for (const chunk of chunks) {
       const { chunk_type, question_no } = classifyChunk(chunk.content);
+      stats[chunk_type]++;
       
-      if (chunk_type !== "other" || question_no) {
-        updates.push({
-          id: chunk.id,
-          chunk_type,
-          question_no,
-        });
-        stats[chunk_type]++;
-      } else {
-        stats.other++;
-      }
+      updates.push({
+        id: chunk.id,
+        chunk_type,
+        question_no,
+      });
     }
-
-    if (!dryRun && updates.length > 0) {
-      // Batch update
+    
+    // Batch update
+    if (!DRY_RUN && updates.length > 0) {
       for (const update of updates) {
         const { error: updateError } = await supabase
-          .from("document_sections")
+          .from('document_sections')
           .update({ chunk_type: update.chunk_type, question_no: update.question_no })
-          .eq("id", update.id);
-
+          .eq('id', update.id);
+        
         if (updateError) {
-          console.error(`Update error for ${update.id}:`, updateError);
+          console.error(`Update error for id ${update.id}:`, updateError.message);
         }
       }
-      console.log(`  Updated ${updates.length} chunks`);
-    } else if (dryRun) {
-      console.log(`  Would update ${updates.length} chunks`);
     }
-
+    
     totalProcessed += chunks.length;
-    offset += batchSize;
-
-    // Rate limiting
-    await new Promise((r) => setTimeout(r, 100));
+    offset += BATCH_SIZE;
+    
+    // Progress
+    process.stdout.write(`\r   Processed: ${totalProcessed} chunks...`);
   }
-
-  console.log("\n=== Classification Complete ===");
-  console.log(`Total processed: ${totalProcessed}`);
-  console.log("Stats:", stats);
+  
+  console.log(`\n\n📊 Classification Results:`);
+  console.log(`   MCQ Questions: ${stats.mcq_question}`);
+  console.log(`   MCQ Answers:   ${stats.mcq_answer}`);
+  console.log(`   Essays:        ${stats.essay}`);
+  console.log(`   Other:         ${stats.other}`);
+  console.log(`   ─────────────────`);
+  console.log(`   Total:         ${totalProcessed}\n`);
+  
+  if (DRY_RUN) {
+    console.log('⚠️  Dry run complete. No changes made. Remove --dry-run to apply.\n');
+  } else {
+    console.log('✅ Classification complete!\n');
+  }
 }
 
-// Run with --dry-run for testing
-const dryRun = process.argv.includes("--dry-run");
-classifyAllChunks(500, dryRun).catch(console.error);
+// Run
+classifyAllChunks().catch(console.error);
