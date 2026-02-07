@@ -441,6 +441,100 @@ app.get("/api/stats/chunks", async (req, res) => {
   }
 });
 
+// ---- Chunk Classification Logic ----
+function isMCQQuestion(content) {
+  const c = content.toLowerCase();
+  const hasChoices = /\b[a-d]\s*[.)]\s*\w/i.test(content) || /\b(option|choice)\s*[a-d]/i.test(c);
+  const hasQuestion = content.includes('?') || /\b(which|what|how|when|where|who|why|calculate|determine|identify|select)\b/i.test(c);
+  const optionMatches = content.match(/\b[A-D]\s*[.)]/g) || [];
+  const hasMultipleOptions = optionMatches.length >= 3;
+  return (hasChoices || hasMultipleOptions) && hasQuestion;
+}
+
+function isMCQAnswer(content) {
+  const c = content.toLowerCase();
+  const hasAnswerIndicator = /\b(correct\s*(answer|choice|option)|answer\s*(is|:)|rationale|explanation\s*for)/i.test(c);
+  const hasChoiceExplanation = /\b(choice|option)\s*[a-d]\s*(is|was|would be)\s*(correct|incorrect|wrong)/i.test(c);
+  const hasAnswerPattern = /\b(the answer is|correct response|right answer)\b/i.test(c);
+  return hasAnswerIndicator || hasChoiceExplanation || hasAnswerPattern;
+}
+
+function isEssay(content) {
+  const c = content.toLowerCase();
+  const hasEssayKeywords = /\b(discuss|explain in detail|describe|analyze|evaluate|compare and contrast|essay|written response)\b/i.test(c);
+  const isLongForm = content.length > 500 && !isMCQQuestion(content) && !isMCQAnswer(content);
+  const hasParagraphs = (content.match(/\n\n/g) || []).length >= 2;
+  return hasEssayKeywords || (isLongForm && hasParagraphs);
+}
+
+function extractQuestionNo(content) {
+  const patterns = [
+    /\bQ\.?\s*(\d+)/i,
+    /\bQuestion\s*#?\s*(\d+)/i,
+    /^\s*(\d+)\s*[.)]/m,
+    /\bID:\s*\w+\s*(\d+\.\d+)/i,
+    /\b(\d+\.\d+)\s*\(/,
+  ];
+  for (const pattern of patterns) {
+    const match = content.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
+
+function classifyChunk(content) {
+  if (!content || content.length < 10) return { chunk_type: 'other', question_no: null };
+  let chunk_type = 'other';
+  if (isMCQQuestion(content)) chunk_type = 'mcq_question';
+  else if (isMCQAnswer(content)) chunk_type = 'mcq_answer';
+  else if (isEssay(content)) chunk_type = 'essay';
+  return { chunk_type, question_no: extractQuestionNo(content) };
+}
+
+// ---- Admin: Classify Chunks Endpoint ----
+app.post("/api/admin/classify-chunks", async (req, res) => {
+  const { limit = 1000, dryRun = false } = req.body || {};
+  
+  try {
+    console.log(`[Classify] Starting classification. Limit: ${limit}, DryRun: ${dryRun}`);
+    
+    // Fetch unclassified chunks (where chunk_type is null OR 'other')
+    const { data: chunks, error } = await supabase
+      .from("document_sections")
+      .select("id, content, chunk_type")
+      .or("chunk_type.is.null,chunk_type.eq.other")
+      .limit(limit);
+    
+    if (error) throw error;
+    if (!chunks || chunks.length === 0) {
+      return res.json({ ok: true, message: "No chunks to classify", processed: 0 });
+    }
+    
+    let stats = { mcq_question: 0, mcq_answer: 0, essay: 0, other: 0, updated: 0 };
+    
+    for (const chunk of chunks) {
+      const { chunk_type, question_no } = classifyChunk(chunk.content);
+      stats[chunk_type]++;
+      
+      // Only update if classification changed or question_no found
+      if (!dryRun && (chunk_type !== 'other' || question_no)) {
+        const { error: updateError } = await supabase
+          .from("document_sections")
+          .update({ chunk_type, question_no })
+          .eq("id", chunk.id);
+        
+        if (!updateError) stats.updated++;
+      }
+    }
+    
+    console.log(`[Classify] Done. Stats:`, stats);
+    res.json({ ok: true, dryRun, processed: chunks.length, stats });
+  } catch (e) {
+    console.error("[Classify] Error:", e);
+    return jsonError(res, 500, "Classification error", String(e?.message || e));
+  }
+});
+
 // ---- start ----
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API listening on http://0.0.0.0:${PORT}`);
