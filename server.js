@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 const app = express();
 
@@ -534,6 +535,10 @@ app.post("/api/admin/classify-chunks", async (req, res) => {
     return jsonError(res, 500, "Classification error", String(e?.message || e));
   }
 });
+
+// ---- Payment Routes ----
+app.use("/api/payment", paymentRoutes);
+console.log("[Payment] Payment routes mounted at /api/payment");
 
 // ---- start ----
 app.listen(PORT, "0.0.0.0", () => {
