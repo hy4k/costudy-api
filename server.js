@@ -1,4 +1,6 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config({ override: true });
+
 import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
@@ -20,6 +22,9 @@ const CHAT_MODEL = process.env.CHAT_MODEL || "gpt-4.1-mini";
 
 const DEFAULT_MATCH_THRESHOLD = Number(process.env.MATCH_THRESHOLD || 0.5);
 const DEFAULT_TOPK = Number(process.env.TOPK || 10);
+const REQUIRE_AI_AUTH = process.env.REQUIRE_AI_AUTH !== "false";
+const AI_RATE_LIMIT_WINDOW_MS = Number(process.env.AI_RATE_LIMIT_WINDOW_MS || 60_000);
+const AI_RATE_LIMIT_MAX = Number(process.env.AI_RATE_LIMIT_MAX || 40);
 
 // ---- required env checks (fail fast) ----
 if (!SUPABASE_URL) throw new Error("Missing SUPABASE_URL");
@@ -35,12 +40,20 @@ app.use((req, _res, next) => {
   next();
 });
 
-// CORS: add domains you will use
-const allowedOrigins = [
+// CORS: production app is https://costudy.in (and www). Add dev origins + optional CORS_ALLOWED_ORIGINS.
+const defaultCorsOrigins = [
   "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
   "https://costudy.in",
   "https://www.costudy.in",
 ];
+const extraCorsOrigins = (process.env.CORS_ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const allowedOrigins = [...new Set([...defaultCorsOrigins, ...extraCorsOrigins])];
 
 app.use(
   cors({
@@ -164,6 +177,60 @@ function jsonError(res, status, message, details) {
   return res.status(status).json({ ok: false, error: message, details });
 }
 
+function getClientIp(req) {
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.length > 0) {
+    return forwarded.split(",")[0].trim();
+  }
+  return req.socket?.remoteAddress || "unknown";
+}
+
+const aiRateWindow = new Map();
+
+async function requireAIAuth(req, res, next) {
+  if (!REQUIRE_AI_AUTH) {
+    return next();
+  }
+  try {
+    const authHeader = req.headers.authorization || "";
+    if (!authHeader.startsWith("Bearer ")) {
+      return jsonError(res, 401, "Authentication required");
+    }
+    const token = authHeader.slice(7);
+    const { data, error } = await supabase.auth.getUser(token);
+    if (error || !data?.user) {
+      return jsonError(res, 401, "Invalid auth token");
+    }
+    req.user = data.user;
+    return next();
+  } catch (e) {
+    return jsonError(res, 401, "Auth validation failed", String(e?.message || e));
+  }
+}
+
+function aiRateLimiter(req, res, next) {
+  const now = Date.now();
+  const key = req.user?.id || getClientIp(req);
+  const item = aiRateWindow.get(key) || { start: now, count: 0 };
+  if (now - item.start > AI_RATE_LIMIT_WINDOW_MS) {
+    item.start = now;
+    item.count = 0;
+  }
+  item.count += 1;
+  aiRateWindow.set(key, item);
+  if (item.count > AI_RATE_LIMIT_MAX) {
+    return jsonError(
+      res,
+      429,
+      "Rate limit exceeded",
+      `Max ${AI_RATE_LIMIT_MAX} requests per ${Math.round(AI_RATE_LIMIT_WINDOW_MS / 1000)}s`
+    );
+  }
+  return next();
+}
+
+const AI_GUARDS = [requireAIAuth, aiRateLimiter];
+
 // ---- routes ----
 app.get("/health", (_req, res) => res.json({ ok: true, env: NODE_ENV }));
 
@@ -178,7 +245,7 @@ app.get("/debug/config", (_req, res) => res.json({
 }));
 
 // Vector search endpoint with chunk_type filtering
-app.post("/api/search", async (req, res) => {
+app.post("/api/search", ...AI_GUARDS, async (req, res) => {
   try {
     const { query, topK, threshold, filterDoc, chunkType } = req.body || {};
     if (!query || typeof query !== "string") return jsonError(res, 400, "query required");
@@ -210,7 +277,7 @@ app.post("/api/search", async (req, res) => {
   }
 });
 
-app.post("/api/ask-cma", async (req, res) => {
+app.post("/api/ask-cma", ...AI_GUARDS, async (req, res) => {
   try {
     const { message, subject, mode, history, activeContext, filterDoc, chunkType } = req.body || {};
 
@@ -281,7 +348,7 @@ app.post("/api/ask-cma", async (req, res) => {
   }
 });
 
-app.post("/api/summarize", async (req, res) => {
+app.post("/api/summarize", ...AI_GUARDS, async (req, res) => {
   try {
     const { text } = req.body || {};
     if (!text || typeof text !== "string") return jsonError(res, 400, "text required");
@@ -304,7 +371,7 @@ app.post("/api/summarize", async (req, res) => {
 
 // ---- MCQ Practice Endpoint ----
 // Fetches MCQ questions from the knowledge base for practice sessions
-app.post("/api/mcq/practice", async (req, res) => {
+app.post("/api/mcq/practice", ...AI_GUARDS, async (req, res) => {
   try {
     const { topic, count = 5, part } = req.body || {};
     
@@ -353,7 +420,7 @@ app.post("/api/mcq/practice", async (req, res) => {
 
 // ---- Essay Evaluation Endpoint ----
 // Evaluates student essays using RAG context for accurate grading
-app.post("/api/essay/evaluate", async (req, res) => {
+app.post("/api/essay/evaluate", ...AI_GUARDS, async (req, res) => {
   try {
     const { essay, topic, subject } = req.body || {};
     
@@ -420,10 +487,10 @@ Provide:
 });
 
 // ---- Chunk Stats Endpoint (for admin/debugging) ----
-app.get("/api/stats/chunks", async (req, res) => {
+app.get("/api/stats/chunks", requireAIAuth, async (req, res) => {
   try {
     const { data, error } = await supabase
-      .from("document_sections")
+      .from("content_chunks")
       .select("chunk_type")
       .limit(50000);
     
@@ -493,7 +560,7 @@ function classifyChunk(content) {
 }
 
 // ---- Admin: Classify Chunks Endpoint ----
-app.post("/api/admin/classify-chunks", async (req, res) => {
+app.post("/api/admin/classify-chunks", requireAIAuth, async (req, res) => {
   const { limit = 1000, dryRun = false } = req.body || {};
   
   try {
@@ -501,7 +568,7 @@ app.post("/api/admin/classify-chunks", async (req, res) => {
     
     // Fetch unclassified chunks (where chunk_type is null OR 'other')
     const { data: chunks, error } = await supabase
-      .from("document_sections")
+      .from("content_chunks")
       .select("id, content, chunk_type")
       .or("chunk_type.is.null,chunk_type.eq.other")
       .limit(limit);
@@ -520,7 +587,7 @@ app.post("/api/admin/classify-chunks", async (req, res) => {
       // Only update if classification changed or question_no found
       if (!dryRun && (chunk_type !== 'other' || question_no)) {
         const { error: updateError } = await supabase
-          .from("document_sections")
+          .from("content_chunks")
           .update({ chunk_type, question_no })
           .eq("id", chunk.id);
         

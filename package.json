@@ -5,14 +5,24 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "import:legacy-content": "node scripts/import-old-supabase-content.js",
+    "backfill:embeddings": "node scripts/backfill-embeddings.js",
+    "extract:pdf": "node scripts/extract-pdf-corpus.js",
+    "convert:legacy": "node scripts/convert-legacy-csv.js",
+    "convert:chunks": "node scripts/convert-doc-chunks.js",
+    "ingest:staging": "node scripts/ingest-corpus-staging.js",
+    "triage:staging": "node scripts/auto-triage-staging.js",
+    "review:export": "node scripts/export-review-queue.js",
+    "publish:approved": "node scripts/publish-approved-corpus.js",
+    "seed:demo-users": "node scripts/seed-demo-users.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.90.1",
     "cors": "^2.8.5",
+    "csv-parse": "^6.2.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "openai": "^6.16.0",
-    "@supabase/supabase-js": "^2.90.1"
+    "openai": "^6.16.0"
   }
 }
-

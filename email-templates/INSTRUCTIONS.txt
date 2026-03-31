@@ -1,0 +1,22 @@
+Supabase Auth email templates (CoStudy)
+========================================
+
+Apply in the Supabase Dashboard for your project:
+  Authentication → Email → Email templates
+
+Also set:
+  Authentication → URL configuration
+    Site URL: https://costudy.in
+    Redirect URLs: add https://costudy.in/** and http://localhost:5173/** for local dev
+
+SMTP (optional, for production deliverability):
+  Project Settings → Authentication → SMTP Settings
+  Configure your provider (Resend, SendGrid, etc.) so emails are not rate-limited as heavily as the built-in provider.
+
+For each template below, copy the matching .html file body into the Dashboard editor (HTML). Set the Subject line as noted in each file.
+
+Template files:
+  confirm_signup.html    → "Confirm signup"
+  reset_password.html    → "Reset password"
+
+Variables use Supabase Go template syntax, e.g. {{ .ConfirmationURL }} — do not remove them.
