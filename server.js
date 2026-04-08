@@ -607,6 +607,197 @@ app.post("/api/admin/classify-chunks", requireAIAuth, async (req, res) => {
 app.use("/api/payment", paymentRoutes);
 console.log("[Payment] Payment routes mounted at /api/payment");
 
+// ============================================
+// ESSAY GRADING WORKER
+// Background process that polls essay_grading_queue and evaluates
+// essays via LLM, then stores structured results back in DB.
+// ============================================
+
+const GRADING_POLL_INTERVAL_MS = Number(process.env.GRADING_POLL_INTERVAL_MS || 5000);
+const GRADING_CONCURRENCY = Number(process.env.GRADING_CONCURRENCY || 3);
+let activeGradingJobs = 0;
+
+async function gradeOneEssay() {
+  if (activeGradingJobs >= GRADING_CONCURRENCY) return;
+  activeGradingJobs++;
+
+  try {
+    // Pick next essay from queue using the DB function (FOR UPDATE SKIP LOCKED)
+    const { data: picked, error: pickError } = await supabase.rpc("pick_next_essay_for_grading");
+
+    if (pickError || !picked || !picked.id) {
+      // No essays in queue or function not found — either is fine
+      return;
+    }
+
+    console.log(`[Grading] Processing essay ${picked.id} (session: ${picked.session_id}, topic: ${picked.topic})`);
+
+    try {
+      // Build the evaluation prompt with scenario context
+      const essayText = sanitizeText(picked.essay_text).slice(0, 6000);
+      const scenarioText = sanitizeText(picked.scenario_text || "").slice(0, 2000);
+      const topic = sanitizeText(picked.topic || "General CMA Topic");
+
+      // Fetch relevant CMA reference material via RAG
+      let conceptBlock = "";
+      try {
+        const qEmbed = await embedOne(`CMA US rubric and concepts for ${topic}: ${scenarioText.slice(0, 200)}`);
+        const conceptHits = await retrieveContext({
+          queryEmbedding: qEmbed,
+          topK: 6,
+          threshold: 0.65,
+        });
+        conceptBlock = buildContextBlock(conceptHits, 6000);
+      } catch (ragErr) {
+        console.warn("[Grading] RAG context fetch failed (non-fatal):", ragErr.message);
+      }
+
+      const evalPrompt = `You are a strict CMA US essay grader following IMA official rubrics.
+
+TOPIC: ${topic}
+
+${scenarioText ? `SCENARIO:\n${scenarioText}\n` : ""}
+
+REFERENCE MATERIAL FROM CMA KNOWLEDGE BASE:
+${conceptBlock || "(No reference material available — grade based on general CMA standards)"}
+
+STUDENT'S ESSAY RESPONSE:
+${essayText}
+
+GRADING INSTRUCTIONS:
+Grade this essay strictly and fairly. Return your evaluation as a valid JSON object with EXACTLY this structure (no markdown, no code fences, just raw JSON):
+
+{
+  "overallScore": <number 0-100>,
+  "technicalAccuracy": <number 0-100>,
+  "strategicApplication": <number 0-100>,
+  "communicationQuality": <number 0-100>,
+  "executiveSummary": "<2-3 sentence verdict>",
+  "strengths": ["<strength 1>", "<strength 2>"],
+  "criticalOmissions": ["<omission 1>", "<omission 2>"],
+  "roadmapTo100": ["<step 1>", "<step 2>", "<step 3>"]
+}
+
+Be rigorous: a perfect score is rare. Average CMA essays score 55-70.`;
+
+      const completion = await openai.chat.completions.create({
+        model: CHAT_MODEL,
+        messages: [
+          { role: "system", content: "You are a CMA US essay evaluator. Always respond with valid JSON only. No markdown formatting." },
+          { role: "user", content: evalPrompt },
+        ],
+        temperature: 0.15,
+      });
+
+      const rawResponse = completion.choices?.[0]?.message?.content || "";
+
+      // Parse the structured evaluation
+      let evaluation;
+      try {
+        // Strip potential markdown code fences
+        const cleaned = rawResponse.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+        evaluation = JSON.parse(cleaned);
+      } catch (parseErr) {
+        // Fallback: extract score from text
+        const scoreMatch = rawResponse.match(/overall\s*score[:\s]*(\d+)/i);
+        evaluation = {
+          overallScore: scoreMatch ? parseInt(scoreMatch[1]) : 50,
+          technicalAccuracy: 50,
+          strategicApplication: 50,
+          communicationQuality: 50,
+          executiveSummary: rawResponse.slice(0, 300),
+          strengths: [],
+          criticalOmissions: [],
+          roadmapTo100: [],
+          rawResponse: rawResponse,
+        };
+      }
+
+      // Ensure all required fields exist
+      evaluation.questionId = picked.essay_question_id;
+      evaluation.overallScore = Math.min(100, Math.max(0, Number(evaluation.overallScore) || 0));
+      evaluation.technicalAccuracy = Math.min(100, Math.max(0, Number(evaluation.technicalAccuracy) || evaluation.overallScore));
+      evaluation.strategicApplication = Math.min(100, Math.max(0, Number(evaluation.strategicApplication) || evaluation.overallScore));
+      evaluation.communicationQuality = Math.min(100, Math.max(0, Number(evaluation.communicationQuality) || evaluation.overallScore));
+
+      // Use the DB function to complete grading (updates queue + exam_sessions)
+      const { error: completeError } = await supabase.rpc("complete_essay_grading", {
+        queue_id: picked.id,
+        evaluation_result: evaluation,
+      });
+
+      if (completeError) {
+        console.error(`[Grading] complete_essay_grading RPC failed:`, completeError);
+        // Fallback: update the queue entry directly
+        await supabase
+          .from("essay_grading_queue")
+          .update({
+            status: "COMPLETED",
+            result: evaluation,
+            completed_at: new Date().toISOString(),
+          })
+          .eq("id", picked.id);
+      }
+
+      console.log(`[Grading] Essay ${picked.id} graded: ${evaluation.overallScore}% (topic: ${topic})`);
+    } catch (evalErr) {
+      console.error(`[Grading] Essay ${picked.id} evaluation failed:`, evalErr.message);
+
+      // Mark as FAILED or RETRY
+      const newStatus = (picked.attempts || 0) < (picked.max_attempts || 3) ? "RETRY" : "FAILED";
+      await supabase
+        .from("essay_grading_queue")
+        .update({
+          status: newStatus,
+          error_message: String(evalErr.message || evalErr).slice(0, 500),
+        })
+        .eq("id", picked.id);
+
+      // If retrying, reset to PENDING so it gets picked up again
+      if (newStatus === "RETRY") {
+        await supabase
+          .from("essay_grading_queue")
+          .update({ status: "PENDING" })
+          .eq("id", picked.id);
+      }
+    }
+  } finally {
+    activeGradingJobs--;
+  }
+}
+
+// Poll the grading queue at regular intervals
+setInterval(async () => {
+  try {
+    // Process up to GRADING_CONCURRENCY essays in parallel
+    const promises = [];
+    for (let i = activeGradingJobs; i < GRADING_CONCURRENCY; i++) {
+      promises.push(gradeOneEssay());
+    }
+    if (promises.length > 0) await Promise.allSettled(promises);
+  } catch (err) {
+    console.error("[Grading] Poll error:", err.message);
+  }
+}, GRADING_POLL_INTERVAL_MS);
+
+// Manual trigger endpoint (for admin/testing)
+app.post("/api/admin/grade-essays", requireAIAuth, async (req, res) => {
+  try {
+    const { data: pending } = await supabase
+      .from("essay_grading_queue")
+      .select("id")
+      .eq("status", "PENDING")
+      .limit(100);
+
+    const count = pending?.length || 0;
+    res.json({ ok: true, pendingEssays: count, message: `Worker is processing. ${count} essays in queue.` });
+  } catch (e) {
+    return jsonError(res, 500, "Grade trigger error", String(e?.message || e));
+  }
+});
+
+console.log(`[Grading] Essay grading worker started (poll: ${GRADING_POLL_INTERVAL_MS}ms, concurrency: ${GRADING_CONCURRENCY})`);
+
 // ---- start ----
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API listening on http://0.0.0.0:${PORT}`);
