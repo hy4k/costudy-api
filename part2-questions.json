@@ -1,0 +1,3458 @@
+[
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Vertical analysis of financial statements is primarily used to:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Evaluate a company's performance against industry benchmarks."
+      },
+      {
+        "key": "B",
+        "text": "Examine changes in financial statement items over multiple periods."
+      },
+      {
+        "key": "C",
+        "text": "Express each item as a proportion of a base amount within the same period."
+      },
+      {
+        "key": "D",
+        "text": "Forecast future revenues using regression techniques."
+      }
+    ],
+    "correct_key": "C",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Crestwood Electronics had net credit sales of $1,800,000 for the year. The accounts receivable balance was $150,000 at the beginning of the year and $210,000 at the end of the year. What is the average collection period (in days), rounded to the nearest whole day?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "30 days"
+      },
+      {
+        "key": "B",
+        "text": "36 days"
+      },
+      {
+        "key": "C",
+        "text": "42 days"
+      },
+      {
+        "key": "D",
+        "text": "45 days"
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Obelisk Financial had average total assets of $4,000,000 and average total equity of $1,600,000. Its net profit margin was 8% on revenues of $5,000,000. What is the company's return on equity (ROE) using the DuPont framework?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "10.0%"
+      },
+      {
+        "key": "B",
+        "text": "15.6%"
+      },
+      {
+        "key": "C",
+        "text": "29.5%"
+      },
+      {
+        "key": "D",
+        "text": "25.0%"
+      }
+    ],
+    "correct_key": "D",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Briar Hill Manufacturing reports cost of goods sold of $2,400,000 and average inventory of $400,000. If the industry average inventory turnover is 7.5 times, what can be concluded about Briar Hill?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Briar Hill is more efficient than the industry, with lower carrying costs."
+      },
+      {
+        "key": "B",
+        "text": "Briar Hill has slower inventory movement than the industry, suggesting potential obsolescence risk."
+      },
+      {
+        "key": "C",
+        "text": "Briar Hill's inventory management is superior to peers because it turns over at 6.0 times."
+      },
+      {
+        "key": "D",
+        "text": "Briar Hill's higher days inventory outstanding indicates better product demand."
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Ridgemont Corp. has a debt-to-assets ratio of 0.55 and a times-interest-earned (TIE) ratio of 2.8. Which conclusion is best supported by this data?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The company is financially conservative with no credit risk."
+      },
+      {
+        "key": "B",
+        "text": "The company has moderate leverage with a somewhat tight interest coverage, suggesting manageable but monitored solvency risk."
+      },
+      {
+        "key": "C",
+        "text": "The company is highly solvent and presents minimal default risk to creditors."
+      },
+      {
+        "key": "D",
+        "text": "The company's low TIE ratio indicates it has excess earnings relative to its debt."
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Vantage Corp. reported the following for Year 1 and Year 2: Net Profit Margin declined from 9% to 6%; Asset Turnover improved from 1.4 to 1.8; Financial Leverage (Equity Multiplier) declined from 2.5 to 2.0. What is the direction of change in ROE from Year 1 to Year 2?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "ROE increased because asset turnover improvement outweighed the margin decline."
+      },
+      {
+        "key": "B",
+        "text": "ROE declined because the margin and leverage decreases outweighed the turnover improvement."
+      },
+      {
+        "key": "C",
+        "text": "ROE remained unchanged because the changes offset each other."
+      },
+      {
+        "key": "D",
+        "text": "ROE increased because financial leverage decreased, reducing risk."
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Cascade Industrials has fixed operating costs of $900,000, variable costs of 40% of sales, and sales of $2,500,000. Interest expense is $150,000. What is the degree of total leverage (DTL)?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "2.5"
+      },
+      {
+        "key": "B",
+        "text": "3.75"
+      },
+      {
+        "key": "C",
+        "text": "3.33"
+      },
+      {
+        "key": "D",
+        "text": "4.73"
+      }
+    ],
+    "correct_key": "A",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Cobalt Systems reports the following: Gross profit margin of 40%, operating expenses (excluding COGS) of $600,000, and revenues of $2,000,000. What is the company's operating income?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$800,000"
+      },
+      {
+        "key": "B",
+        "text": "$200,000"
+      },
+      {
+        "key": "C",
+        "text": "$600,000"
+      },
+      {
+        "key": "D",
+        "text": "$400,000"
+      }
+    ],
+    "correct_key": "D",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Dunmore Trading has current assets of $520,000 (including inventory of $180,000 and prepaid expenses of $20,000 and accounts receivables of $150,000) and current liabilities of $200,000. What is the company's quick ratio?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "1.6"
+      },
+      {
+        "key": "B",
+        "text": "2.6"
+      },
+      {
+        "key": "C",
+        "text": "1.5"
+      },
+      {
+        "key": "D",
+        "text": "2.0"
+      }
+    ],
+    "correct_key": "C",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Meridian Retail Inc. reports Total asset of $690,000 which include  current assets of $480,000 . Current liabilities reported as  $160,000. Which of the following best describes the company's current ratio and its implication?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "0.33; the company faces significant short-term liquidity risk."
+      },
+      {
+        "key": "B",
+        "text": "3.0; the company has strong short-term liquidity but may be holding excess idle assets."
+      },
+      {
+        "key": "C",
+        "text": "3.0; the company is highly efficient in using its working capital."
+      },
+      {
+        "key": "D",
+        "text": "2.0; the company maintains an adequate but conservative liquidity position."
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "In a common-size income statement, each line item is expressed as a percentage of which base figure?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Total assets"
+      },
+      {
+        "key": "B",
+        "text": "Total equity"
+      },
+      {
+        "key": "C",
+        "text": "Net revenues (sales)"
+      },
+      {
+        "key": "D",
+        "text": "Gross profit"
+      }
+    ],
+    "correct_key": "A",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Falconer Industries reports EBIT of $600,000, interest expense of $120,000, and lease payments of $80,000. Which of the following correctly calculates the fixed-charge coverage ratio?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "5.0"
+      },
+      {
+        "key": "B",
+        "text": "3.0"
+      },
+      {
+        "key": "C",
+        "text": "3.4"
+      },
+      {
+        "key": "D",
+        "text": "4.0"
+      }
+    ],
+    "correct_key": "C",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Globetrade, a retailer, is considering changing its method of inventory costing from first-in, first-out (FIFO) to last-in, first-out (LIFO) in a period of inflation. What effect would the change from FIFO to LIFO have on Globetrade’s current ratio and inventory turnover ratio?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Both the current ratio and the inventory turnover ratio would decrease."
+      },
+      {
+        "key": "B",
+        "text": "The current ratio would increase but the inventory turnover ratio would decrease."
+      },
+      {
+        "key": "C",
+        "text": "The current ratio would decrease but the inventory turnover ratio would increase."
+      },
+      {
+        "key": "D",
+        "text": "Both the current ratio and the inventory turnover ratio would increase."
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "Remo Company had 150,000 common shares and 100,000 preferred shares outstanding at the close of the prior year. During the current year Roy repurchased 15,000 common shares on March 1, sold 30,000 common shares on June 1, and sold an additional 60,000 common shares on November 1. No change in preferred shares outstanding occurred during the year. The number of shares of stock outstanding to be used in the calculation of basic earnings per share at the end of the current year is",
+    "choices": [
+      {
+        "key": "A",
+        "text": "198,000."
+      },
+      {
+        "key": "B",
+        "text": "298,000."
+      },
+      {
+        "key": "C",
+        "text": "176,000."
+      },
+      {
+        "key": "D",
+        "text": "165,000."
+      }
+    ],
+    "correct_key": "D",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "The owner of a chain of grocery stores has bought a large supply of mangoes and paid for the fruit with cash. This purchase will adversely impact which one of the following?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Quick or acid test ratio."
+      },
+      {
+        "key": "B",
+        "text": "Price earnings ratio."
+      },
+      {
+        "key": "C",
+        "text": "Current ratio."
+      },
+      {
+        "key": "D",
+        "text": "Working capital."
+      }
+    ],
+    "correct_key": "B",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "The following information has been derived from the financial statements of Boutwell Company.\nCurrent assets\n$875,000\nTotal assets\n1,200,000\nLong-term liabilities\n250,000\nCurrent ratio\n3.5\nThe company's debt-to-equity ratio is",
+    "choices": [
+      {
+        "key": "A",
+        "text": "0.43 to 1."
+      },
+      {
+        "key": "B",
+        "text": "0.50 to 1."
+      },
+      {
+        "key": "C",
+        "text": "0.71 to 1."
+      },
+      {
+        "key": "D",
+        "text": "0.37 to 1."
+      }
+    ],
+    "correct_key": "D",
+    "section": "A"
+  },
+  {
+    "topic": "Financial Statement Analysis",
+    "stem": "When reporting a change in accounting principle,",
+    "choices": [
+      {
+        "key": "A",
+        "text": "it is reported as part of income from continuing operations in the year of the change reflecting the application of the new principle, but on a basis that includes the cumulative adjustment."
+      },
+      {
+        "key": "B",
+        "text": "the change is recognized by retrospectively adjusting the financial statements."
+      },
+      {
+        "key": "C",
+        "text": "the change is recognized by including the cumulative effect of the change in the net income of the period of change."
+      },
+      {
+        "key": "D",
+        "text": "the pro forma effects of retroactive application of the new principle upon income from continuing operations and net income are not to be disclosed on the face of the income statement or in the notes to financial statements"
+      }
+    ],
+    "correct_key": "C",
+    "section": "A"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "American Outlook, Inc. will issue bonds to fund the acquisition of a major competitor. American Outlook has previously issued preferred and common stock. Which component cost(s) should American Outlook use in evaluating the financial cost of acquiring the new firm?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The weighted-average component cost of common stock, preferred stock, and debt"
+      },
+      {
+        "key": "B",
+        "text": "Shareholders’ equity (both preferred and common)"
+      },
+      {
+        "key": "C",
+        "text": "Only the cost of the new debt issue alone"
+      },
+      {
+        "key": "D",
+        "text": "The coupon rate on the bonds and the dividend yield on the preferred and common stock"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Schmidt, Inc. issues a $10 million bond with a 6% coupon rate, 4-year maturity, and annual interest payments when market interest rates are 7%. Time value of money factors are listed below.\n\nPV of $1 @ 7% for 4 years = 0.7629\n\nPV ordinary annuity @ 7% for 4 years = 3.38721*\n\nSolutions are computed using present value tables. Due to rounding errors, the solution may be slightly different if a calculator is used.\n\nWhat is the initial carrying value of the bonds?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$9,661,326"
+      },
+      {
+        "key": "B",
+        "text": "$9,400,000"
+      },
+      {
+        "key": "C",
+        "text": "$10,000,000"
+      },
+      {
+        "key": "D",
+        "text": "$10,338,721"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Dynamo Corp. produces annual cash flows of $150 and is expected to exist forever. The company is currently financed with 75% equity and 25% debt. Your analysis tells you that the appropriate discount rates are 10% for the cash flows, and 7% for the debt. You currently own 20% of the stock. How much is Dynamo worth today?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$1,125"
+      },
+      {
+        "key": "B",
+        "text": "$1,500"
+      },
+      {
+        "key": "C",
+        "text": "$2,143"
+      },
+      {
+        "key": "D",
+        "text": "$300"
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following statements is not true about the general dividend valuation model?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The model does not assume any specific pattern for future dividends, such as a constant growth rate."
+      },
+      {
+        "key": "B",
+        "text": "It makes a specific assumption about when the share of stock is going to be sold in the future."
+      },
+      {
+        "key": "C",
+        "text": "The model calls for forecasting an infinite number of dividends for a stock."
+      },
+      {
+        "key": "D",
+        "text": "The price of a share of stock is the present value of all expected future dividends"
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "The CPF Company is planning to issue $100,000 in 5-year bonds having a stated interest rate of 6%. Interest will be paid at the end of each year. The factor for a 5-year annuity at 6% is 4.2124, for a 5-year annuity at 5% is 4.3295, for a single sum to be received in 5 years at 6% is 0.7473, and for a single sum to be received in 5 years at 5% is 0.7835.\n\n\n\nIf the market rate of interest is 5%, how much will CPF receive when the bonds are issued?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$104,327"
+      },
+      {
+        "key": "B",
+        "text": "$95,792"
+      },
+      {
+        "key": "C",
+        "text": "$103,624"
+      },
+      {
+        "key": "D",
+        "text": "$100,707"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "If a firm pays a constant dividend of $10 and the required rate of return or discount rate is equal to 10%, what is the price of the stock using the zero-growth dividend model?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$1"
+      },
+      {
+        "key": "B",
+        "text": "$10"
+      },
+      {
+        "key": "C",
+        "text": "$50"
+      },
+      {
+        "key": "D",
+        "text": "$100"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Suppose that Banana Computers has $1,000 in revenue this year, along with COGS of $400 and SG&A of $100. The required rate of return on its equity is 14% and the tax rate is 30%. Banana is considering adding $700 worth of debt with an after-tax cost of 5%. What is the net income of Banana without and with the debt?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$350 and $252"
+      },
+      {
+        "key": "B",
+        "text": "$420 and $350"
+      },
+      {
+        "key": "C",
+        "text": "$350 and $315"
+      },
+      {
+        "key": "D",
+        "text": "$420 and $252"
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Assume that a stock paid a dividend of $1.50 last year. Next year, an investor believes that this year the dividend will be 20% higher and that the stock will be sold for $50 at year end.\n\n\n\nAssume a beta of 2.0, a risk-free rate of 6%, and an expected market return of 15%. What is the value of the stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$40.32"
+      },
+      {
+        "key": "B",
+        "text": "$41.77"
+      },
+      {
+        "key": "C",
+        "text": "$50.00"
+      },
+      {
+        "key": "D",
+        "text": "$51.80"
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "When the value of the firm is above the face value of the debt, which of the following is true?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The stockholders repay the debt and the equity is worth less than $0."
+      },
+      {
+        "key": "B",
+        "text": "The stockholders repay the debt and the equity is worth the difference between the firm value and the face value of the debt."
+      },
+      {
+        "key": "C",
+        "text": "The stockholders default and the lenders receive the value of the firm."
+      },
+      {
+        "key": "D",
+        "text": "The stockholders default and the equity is worth $0"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "The LYX Company reported earnings per share of $6.00 for its most recent fiscal year and it recently paid a dividend of $2.00 per share. Management believes that earnings and dividends will continue at the current level for the foreseeable future. If investors expect to earn a return of 10% on this stock, what is the current market price of LYX’s stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$60.00"
+      },
+      {
+        "key": "B",
+        "text": "$20.00"
+      },
+      {
+        "key": "C",
+        "text": "$40.00"
+      },
+      {
+        "key": "D",
+        "text": "$22.00"
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "The UHM Company recently reported earnings per share of $9.00 for its most recent fiscal year and it recently paid a dividend of $4.00 per share. Management believes that earnings and dividends will grow annually at 4% for the foreseeable future. If investors expect to earn a return of 12% on this stock, what is the current market price of UHM’s stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$33.33"
+      },
+      {
+        "key": "B",
+        "text": "$50.00"
+      },
+      {
+        "key": "C",
+        "text": "$52.00"
+      },
+      {
+        "key": "D",
+        "text": "$117.00"
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following statements is true about the general dividend valuation model?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "It implies that the underlying value of a share of stock is determined by the market's expectations of the future dividends that the firm will generate."
+      },
+      {
+        "key": "B",
+        "text": "It implies that the value of a firm's common stock can be determined only if the expected future dividends are infinite."
+      },
+      {
+        "key": "C",
+        "text": "It implies that the value of a growth stock can be determined by forecasting the future price of the stock."
+      },
+      {
+        "key": "D",
+        "text": "The model cannot be used to calculate the value of a common stock unless the dividends exceed the firm's expected growth rate."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Wally's War Duds has a preferred share issue outstanding with a current price of $92.00 and a par value of $100 per share. The firm is expected to pay a semi-annual dividend of $4.00 per share a year from today. What is the firm's cost of preferred equity?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Round your final answer to two decimal places."
+      },
+      {
+        "key": "B",
+        "text": "4.00%"
+      },
+      {
+        "key": "C",
+        "text": "4.35%"
+      },
+      {
+        "key": "D",
+        "text": "8.00%"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "70%\n\n\n\nWhich of the following is a key assumption for the constant growth dividend model used to value stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The price of the stock increases at a constant rate."
+      },
+      {
+        "key": "B",
+        "text": "The dividend does not increase."
+      },
+      {
+        "key": "C",
+        "text": "The dividend increases over time at a constant rate."
+      },
+      {
+        "key": "D",
+        "text": "The price of the stock remains constant"
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following is not a common valuation ratio used to value common stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Price-to-earnings ratio"
+      },
+      {
+        "key": "B",
+        "text": "Market-to-book ratio"
+      },
+      {
+        "key": "C",
+        "text": "Price-to-sales ratio"
+      },
+      {
+        "key": "D",
+        "text": "Debt-to-equity ratio"
+      }
+    ],
+    "correct_key": "D",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following changes, when considered individually, will increase the value of a put option?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "An increase in the risk-free interest rate"
+      },
+      {
+        "key": "B",
+        "text": "Lower volatility of the price of the underlying asset"
+      },
+      {
+        "key": "C",
+        "text": "A higher strike price"
+      },
+      {
+        "key": "D",
+        "text": "The option nearing its expiration date"
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following changes, when considered individually, will increase the value of a call option?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The value of the underlying asset becomes more volatile."
+      },
+      {
+        "key": "B",
+        "text": "The price of the underlying asset goes down."
+      },
+      {
+        "key": "C",
+        "text": "The expiration date gets closer (the passage of time)."
+      },
+      {
+        "key": "D",
+        "text": "The strike price is higher"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Pitchgent Inc. stock was trading last month at $22 per share. There were two types of options available on the stock. Call options with a strike price of $16, which expire at the end of the month, were trading at $6.00. Put options with a strike price of $16, which expire at the end of the month, were trading at $1.10. Larry invested $132 in common stock. Keaty invested $132 in the call options. Marek invested $132 in the put options. At the end of one month, Larry sells all of his shares while the price of Pitchgent Inc. is $25. How much profit did Larry realize on the investment?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$132"
+      },
+      {
+        "key": "B",
+        "text": "$18"
+      },
+      {
+        "key": "C",
+        "text": "$150"
+      },
+      {
+        "key": "D",
+        "text": "Larry did not make a profit"
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Consider a corn farmer who expects to produce 55,000 bushels of corn at the end of this season. To hedge the risk associated with corn prices, the farmer purchases put options to cover his entire crop. The put options have a strike price of $8.50 per bushel and a premium of $0.40 per bushel. He also sells an equal amount of call options with a strike price of $8.50 per bushel and a premium of $0.53 a bushel. Which of the following statements is correct?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "From this transaction the farmer can pocket $7,500 immediately."
+      },
+      {
+        "key": "B",
+        "text": "If corn prices increase substantially, the farmer will earn more than the strike price."
+      },
+      {
+        "key": "C",
+        "text": "If corn prices decrease substantially, the farmer will earn less than the strike price."
+      },
+      {
+        "key": "D",
+        "text": "The farmer has guaranteed that he will sell his corn for $8.50 a bushel"
+      }
+    ],
+    "correct_key": "D",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which option should Crescent Systems select?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Option 2, because Option 1 would increase the debt to total capital ratio to 56.25%, violating the company's policy."
+      },
+      {
+        "key": "B",
+        "text": "Option 1, because it brings the total debt to total capital ratio to 45%, which is within policy."
+      },
+      {
+        "key": "C",
+        "text": "Either Option 1 or 2, because both result in a post-financing WACC close to 10.5%."
+      },
+      {
+        "key": "D",
+        "text": "Option 1, because the lower cost of debt will result in a WACC below the 10.5% maximum."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following best describes the difference between a fair value hedge and a cash flow hedge?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "A fair value hedge is applied only to derivatives involving foreign currency, while a cash flow hedge is applied to all other types of derivatives."
+      },
+      {
+        "key": "B",
+        "text": "A fair value hedge protects against changes in cash flows from variable-rate debt, while a cash flow hedge protects against changes in the fair value of fixed-rate debt instruments"
+      },
+      {
+        "key": "C",
+        "text": "A fair value hedge is used to hedge the risk of a change in the fair value of a recognized asset or liability or a firm commitment, while a cash flow hedge is used to hedge the risk of variability in future cash flows from a forecasted transaction."
+      },
+      {
+        "key": "D",
+        "text": "A fair value hedge is used to manage the risk of changes in the value of forecasted transactions, while a cash flow hedge is used to manage the risk of changes in the value of recognized assets and liabilities."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "A wheat farmer is concerned that wheat prices may decline over the next three months before they fulfill a large sale to a cereal producer. At the same time, the cereal producer is concerned that wheat prices may rise during the same period, increasing their cost of production. The wheat farmer and the cereal producer agree to a forward contract at $250 per metric ton for 5,000 metric tons of wheat, to be settled in three months. Which of the following best describes the positions and motivations of the two parties?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The wheat farmer is speculating that prices will rise and is using a short position to increase profits, while the cereal producer is hedging with a long position."
+      },
+      {
+        "key": "B",
+        "text": "The cereal producer is taking a long position to hedge against price increases, while the wheat farmer is taking a short position to hedge against price decreases."
+      },
+      {
+        "key": "C",
+        "text": "The cereal producer is taking a long position to hedge against price increases, while the wheat farmer is taking a short position to hedge against price decreases."
+      },
+      {
+        "key": "D",
+        "text": "Both parties are taking short positions to lock in a mutually beneficial price and eliminate the need for a hedge."
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "What is the difference between a subsequent offering and a secondary offering of stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "A subsequent offering can only occur during the IPO, while a secondary offering is limited to follow-on public offerings after the IPO is complete."
+      },
+      {
+        "key": "B",
+        "text": "A subsequent offering involves the sale of shares by major stockholders seeking to liquidate their holdings, while a secondary offering involves the issuance of new shares by the company to raise additional capital."
+      },
+      {
+        "key": "C",
+        "text": "A subsequent offering involves the sale of new or treasury shares by the issuing company, while a secondary offering involves the resale of existing shares by current shareholders, such as founders or insiders."
+      },
+      {
+        "key": "D",
+        "text": "A subsequent offering is conducted in the secondary market through brokers, while a secondary offering is conducted in the primary market through an investment bank."
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Jeffers Co. takes out a one-year loan of $200,000 at 8% simple interest. The bank requires a 15% compensating balance to be maintained in a demand deposit account at the bank paying no interest. Jeffers already keeps a minimum of $10,000 on deposit in the account at all times. What is the effective annual interest rate on this loan?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "8.89%"
+      },
+      {
+        "key": "B",
+        "text": "9.41%."
+      },
+      {
+        "key": "C",
+        "text": "9.78%"
+      },
+      {
+        "key": "D",
+        "text": "8.00%"
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Bristol Corp. enters into a factoring arrangement in which the factor agrees to purchase the company’s receivables, which average $120,000 per month and have an average collection period of 30 days. The factor advances 85% of the receivables’ face value at an annual interest rate of 9% and charges a 2% fee on all receivables purchased. The company estimates it will save $18,000 annually in collection costs. Interest and fees are not deducted in advance. Assume a 360-day year.\n\nWhat is the net annual cost as a percentage of the funds advanced, which can be considered the effective annual interest rate on this arrangement?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "31.65%."
+      },
+      {
+        "key": "B",
+        "text": "11.00%"
+      },
+      {
+        "key": "C",
+        "text": "16.65%."
+      },
+      {
+        "key": "D",
+        "text": "19.59%."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following is not an impact of a multinational corporation (MNC) on its home country?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Reduced competition in the home market due to the MNC’s dominant presence."
+      },
+      {
+        "key": "B",
+        "text": "Transfer of technology and capital into the home country by the MNC."
+      },
+      {
+        "key": "C",
+        "text": "Job losses due to production relocating to lower-cost countries."
+      },
+      {
+        "key": "D",
+        "text": "Increased tax revenues from the MNC’s global earnings."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "An investor is constructing a diversified investment portfolio and is analyzing the correlation coefficients between potential asset pairs. Which of the following pairs of securities would be most effective in reducing the portfolio's overall unsystematic risk?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Two securities with a correlation coefficient of −0.85."
+      },
+      {
+        "key": "B",
+        "text": "Two securities with a correlation coefficient of +1.00."
+      },
+      {
+        "key": "C",
+        "text": "Two securities with a correlation coefficient of 0."
+      },
+      {
+        "key": "D",
+        "text": "Two securities with a correlation coefficient of +0.95."
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Langley Motors Inc. is planning to issue new common stock to finance an expansion. Langley expects to sell the new issue for $50 per share, and the most recent annual dividend Langley paid on its common stock was $3.00 per share. Management forecasts an annual dividend growth rate of 6%, and flotation costs are expected to be 4% of the issue price. Langley's income tax rate is 21%. What cost of equity should Langley use in its cost of capital calculations?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "12.63%."
+      },
+      {
+        "key": "B",
+        "text": "9.98%."
+      },
+      {
+        "key": "C",
+        "text": "12.00%."
+      },
+      {
+        "key": "D",
+        "text": "12.25%."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "The historical beta for ABC Corporation’s common stock is 0.8. The risk-free rate of return is 3%. The expected return of the market portfolio is 6%. ABC Corp. paid a dividend last year of $1.00 per share. Dividends are expected to grow at 2% annually. What is the intrinsic value of a share of ABC Corp. common stock?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$25.50."
+      },
+      {
+        "key": "B",
+        "text": "$29.41."
+      },
+      {
+        "key": "C",
+        "text": "$102.00"
+      },
+      {
+        "key": "D",
+        "text": "$30.00."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Riverside Manufacturing is considering a new accounts payable disbursement system expected to delay payments by 2 days without harming vendor relations. Daily cash outflows for payables average $800,000. Riverside typically borrows for 9 months each year and invests surplus funds for the remaining 3 months. The company’s annual borrowing rate is 6%, and the investment return on its excess funds is 3%. What is the maximum annual cost Riverside would be willing to pay for this new system without losing money on it?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$42,000."
+      },
+      {
+        "key": "B",
+        "text": "$84,000."
+      },
+      {
+        "key": "C",
+        "text": "$96,000."
+      },
+      {
+        "key": "D",
+        "text": "$72,000."
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Blairmore Industries is seeking to divest one of its non-core divisions. Blairmore is considering two options: (1) creating an independent company whose shares will be distributed to existing shareholders, and (2) launching an IPO (initial public offering) of the division to raise capital while retaining majority control.\n\nBlairmore wants to evaluate the key difference between these alternatives. Which of the following best describes a key difference between a corporate spin-off and an equity carve-out?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "In an equity carve-out, the parent sells a portion of the subsidiary to the public via an IPO, while in a spin-off, shares of the subsidiary are distributed pro rata to the parent’s shareholders."
+      },
+      {
+        "key": "B",
+        "text": "A spin-off is used to raise capital from external investors, while an equity carve-out is primarily used to eliminate underperforming assets."
+      },
+      {
+        "key": "C",
+        "text": ". In a spin-off, the parent company sells the division to outside shareholders, while in an equity carve-out the parent distributes new shares of the subsidiary to existing shareholders."
+      },
+      {
+        "key": "D",
+        "text": "In an equity carve-out, the parent loses control of the divested business, while in a corporate spin-off, the parent typically retains majority ownership and control of the spun-off entity."
+      }
+    ],
+    "correct_key": "B",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following factors does not affect the use of the discounted cash flow method on an international capital budgeting project compared to a domestic capital budgeting project?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Tax laws"
+      },
+      {
+        "key": "B",
+        "text": "Financial reporting requirements"
+      },
+      {
+        "key": "C",
+        "text": "Repatriation of earnings requirements"
+      },
+      {
+        "key": "D",
+        "text": "Time value of money"
+      }
+    ],
+    "correct_key": "A",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "All of the following relating to the advantages associated with international diversification of a business are correct, except\n\nInternational diversification allows access to scarce, more competitive resources.\n\nInternational diversification can lead to economies of scale.\n\nInternational diversification helps in spreading business risks.\n\nInternational diversification is preferred as it allows the repatriation of profits very easily from other countries to the domestic country\n\n\n\nWhich of the following financial tools refers to a lender guaranteeing the acceptance of a payment request from an importer?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Letters of credit"
+      },
+      {
+        "key": "B",
+        "text": "Time drafts"
+      },
+      {
+        "key": "C",
+        "text": "Bankers’ acceptance"
+      },
+      {
+        "key": "D",
+        "text": "Sight drafts"
+      }
+    ],
+    "correct_key": "D",
+    "section": "B"
+  },
+  {
+    "topic": "Corporate Finance",
+    "stem": "Which of the following is least likely to be a benefit of a company expanding internationally\n\nExpanding to international markets increases the market for a company’s products.\n\nExpanding to international markets lowers a company’s cost of capital.\n\nExpanding to international markets increases the pool of talent from which a company can hire.\n\nExpanding to international markets increases a company’s access to sources of capital.\n\n\n\n\n\nWhich of the following describes forfaiting?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "A factor in the United States contacts a factor in Denmark to assist in the collection of accounts receivable."
+      },
+      {
+        "key": "B",
+        "text": "A seller in the United States sells a receivable payable in 195 days from a buyer in Italy."
+      },
+      {
+        "key": "C",
+        "text": "A buyer in Mexico agrees to pay a seller in the United States immediately when goods are delivered."
+      },
+      {
+        "key": "D",
+        "text": "A U.S. company sends goods to be sold in Brazil to a Brazilian company and the Brazilian company pays for the goods only when they are sold."
+      }
+    ],
+    "correct_key": "C",
+    "section": "B"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A manufacturing company produces an electronic device. Each device sells for $250. The variable manufacturing cost per unit is $120, the variable selling cost per unit is $15, and the fixed manufacturing cost per unit is $10. Recently, the company decided to include a new feature in the device, which increases the variable manufacturing cost by $10 per unit and the fixed manufacturing costs by $5 per unit. However, this change does not affect the selling price or the variable selling cost per unit. What is the new unit contribution margin after incorporating the new feature?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$115"
+      },
+      {
+        "key": "B",
+        "text": "$95"
+      },
+      {
+        "key": "C",
+        "text": "$105"
+      },
+      {
+        "key": "D",
+        "text": "$100"
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Ozone Lighting is introducing a new line of energy-efficient lamps that will be sold for $80 each. The variable cost to manufacture each lamp was initially $50, and Ozone calculated that its breakeven point in revenue for the new line would be $1,333,333. However, after negotiating with suppliers, Lumina managed to reduce the variable cost by $5. Furthermore, the company decided to make changes in the budgeted annual fixed marketing expenses related to the new line. After the adjustments, the company recalculated its breakeven point in revenue as $1,200,000. By how much did Ozone increase or decrease its budgeted fixed marketing expenses?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Decreased by $50,000."
+      },
+      {
+        "key": "B",
+        "text": "Increased by $25,000."
+      },
+      {
+        "key": "C",
+        "text": "Decreased by $25,000."
+      },
+      {
+        "key": "D",
+        "text": "Increased by $83,333."
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Photomart Inc. manufactures digital photo frames and sells each unit for $120. The variable cost per unit is $70. The company's annual fixed costs are $200,000. PhotoMart Inc. aims to achieve an after-tax profit of $80,000 for the fiscal year. Due to a new environmental tax law, their corporate tax rate will increase from 25% to 30%. Additionally, they plan to streamline their production, which will decrease their variable cost by $10 per unit. Considering these changes, how many units must Photo Mart Inc. sell to achieve their desired after-tax profit?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "6,286 units"
+      },
+      {
+        "key": "B",
+        "text": "4,667 units"
+      },
+      {
+        "key": "C",
+        "text": "5,238 units"
+      },
+      {
+        "key": "D",
+        "text": "5,600 units"
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Promax Audio, a high-end audio equipment manufacturer, is considering increasing its fixed marketing expenses by $125,000 annually. This marketing strategy is projected to increase annual unit sales from 5,000 to 6,000 units, and will also increase the variable marketing costs by $10 per unit for each of the additional units sold. Each unit is sold for $500 with variable costs of $360 per unit. Promax Audio's current annual fixed costs, excluding the proposed marketing expenses, amount to $900,000. Should Promax Audio proceed with the marketing project based on its impact on the company's annual profit?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Yes, because the project will increase the company’s profit by $15,000."
+      },
+      {
+        "key": "B",
+        "text": "No, because the project will decrease the company’s profit by $45,000."
+      },
+      {
+        "key": "C",
+        "text": "Yes, because the project will increase the company’s profit by $5,000."
+      },
+      {
+        "key": "D",
+        "text": "No, because the project will result in no change in the company’s profit."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Ureka Electronics sells three different types of gadgets: SmartWatches, EarBuds, and VRHeadsets. The selling prices are $200, $150, and $250 respectively. The variable costs per unit are $120 for SmartWatches, $90 for EarBuds, and $150 for VRHeadsets. Ureka total fixed costs are $300,000. If the company sells these products in a consistent mix of 2 SmartWatches, 3 EarBuds, and 1 VRHeadset for every \"basket\" of 6 units sold, how many units of SmartWatches will be sold at the breakeven point?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "625 units."
+      },
+      {
+        "key": "B",
+        "text": "682 units."
+      },
+      {
+        "key": "C",
+        "text": "1,364 units."
+      },
+      {
+        "key": "D",
+        "text": "1,250 units."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "In the context of breakeven analysis, which of the following is not a valid method to address risk?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Conducting sensitivity analysis to understand how changes in costs or prices will affect the breakeven point."
+      },
+      {
+        "key": "B",
+        "text": "Adjusting the fixed and variable costs based on forecasted future changes in the market."
+      },
+      {
+        "key": "C",
+        "text": "Relying solely on historical data."
+      },
+      {
+        "key": "D",
+        "text": "Calculating the margin of safety in the sales volume forecast."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "ZMV Corporation is evaluating compensation plans for its 10-member sales team in anticipation of $2 million in sales for the upcoming year. The company is considering three compensation plans:\n1.A fixed salary of $60,000.\n2.A fixed salary of $50,000 plus a 3% commission on sales.\n3.A 35% commission on sales, with no fixed salary.\nGiven the expected level of sales, which compensation plan would be the most cost-effective for ZMV Corporation while still incentivizing the sales team?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Plans 2 and 3 are equally cost-effective and both incentivize the sales team to the same degree."
+      },
+      {
+        "key": "B",
+        "text": "Plan 1."
+      },
+      {
+        "key": "C",
+        "text": "Plan 2."
+      },
+      {
+        "key": "D",
+        "text": "Plan 3"
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "S&S Corporation's single product sells for $5.00 and has a variable cost of $3.00 per unit. The company has fixed costs of $8,000, and its tax rate is 25%. Management has a target after-tax net income of 15% of sales revenues. How many units must the company sell to achieve this target?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "4,000 units."
+      },
+      {
+        "key": "B",
+        "text": "6,400 units."
+      },
+      {
+        "key": "C",
+        "text": "8,000 units."
+      },
+      {
+        "key": "D",
+        "text": "4,706 units."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A company is evaluating two pricing plans for a software license that supports its production line operations. The plans are as follows:\nGold Plan: Fixed annual fee of $150,000, plus $5 per unit produced.\nSilver Plan: No fixed fee, but $12 per unit produced.\nAssume the company expects to produce between 15,000 and 40,000 units annually.Which of the following is correct?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The Silver Plan is more cost-effective at all volumes below 30,000 units, and the Gold Plan is more cost-effective at all volumes above 30,000 units."
+      },
+      {
+        "key": "B",
+        "text": "The point at which the two costs will be equal is 25,000 units, and the Silver Plan is always cheaper below this level."
+      },
+      {
+        "key": "C",
+        "text": "The point at which the two costs will be equal is 21,429 units, and the Gold Plan becomes more cost-effective above this level."
+      },
+      {
+        "key": "D",
+        "text": "The point at which the two costs will be equal is 18,000 units, and both plans are equally cost-effective below this level."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Which of the following best identifies the two requirements that must be met for information to be considered relevant for decision-making?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Information must be forward-looking (future-oriented) and must differ between or among the available alternatives."
+      },
+      {
+        "key": "B",
+        "text": "Information must differ between or among the available alternatives and be based on current market prices."
+      },
+      {
+        "key": "C",
+        "text": "Information must be related to past transactions and be verifiable by accounting records."
+      },
+      {
+        "key": "D",
+        "text": "The costs or revenues described by the information must be avoidable and must result from choosing one alternative over another."
+      }
+    ],
+    "correct_key": "A",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A manufacturer currently produces 15,000 units of a component part at the following full cost per unit\nDirect materials: $6\nDirect labor: $14\nVariable overhead: $8\nFixed overhead: $7\nA supplier offers to sell the manufacturer the 15,000 units for $30 each. If the manufacturer accepts the offer, it can sublease part of its facility for $30,000 annually. Of the $7 fixed overhead per unit, $4 is avoidable if production is halted. What is the differential cost of continuing to manufacture the components instead of purchasing them?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Zero – there is no difference in cost between the two alternatives."
+      },
+      {
+        "key": "B",
+        "text": "$75,000."
+      },
+      {
+        "key": "C",
+        "text": "$60,000."
+      },
+      {
+        "key": "D",
+        "text": "$45,000."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "WestSide Industries produces two main products, P1 and P2, and a by-product, B1, from a joint process in Department X. Product P1 can be sold at the split-off point or further refined in Department Y to produce P1-A, a high-grade version. Refining also results in the by-product B2. The market for P1 remains strong, but a competitor has launched a direct rival to P1-A. Westside is now evaluating whether it should continue refining P1. If refining is discontinued, Department Y will be closed.\nConsider the following information:\nSelling price per unit of P1\nDirect labor cost in Department Y\nAdditional packaging cost for B2\nAllocated joint costs from Department X to P1\nMaintenance contract cost for Department Y equipment (cancelable upon closure)\nCost of raw materials already purchased for previous batches of P1-A\nWhich of the above items should Westside consider in its decision to discontinue Department Y?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "1, 3, 5, 6."
+      },
+      {
+        "key": "B",
+        "text": "1, 2, 4, 6."
+      },
+      {
+        "key": "C",
+        "text": "2, 3, 4, 5."
+      },
+      {
+        "key": "D",
+        "text": "1, 2, 3, 5."
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "AverageSelling Price\n7\n14\n$50\n8\n18\n$49\n9\n21\n$48\nWhat is the marginal revenue per unit when one worker is added to a team of 8 workers?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$126.00."
+      },
+      {
+        "key": "B",
+        "text": "$42.00."
+      },
+      {
+        "key": "C",
+        "text": "$49.00."
+      },
+      {
+        "key": "D",
+        "text": "$48.00."
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A small manufacturing firm is facing falling market prices and must determine whether it should continue operating in the short run. Its average variable cost is $20 per unit, and its average total cost is $35 per unit. If the market price is $18 per unit, which of the following best describes the firm’s optimal short-term action, and why?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Continue operating in the short run because the price covers the variable cost and minimizes the loss."
+      },
+      {
+        "key": "B",
+        "text": "Shut down immediately because the price is below the average variable cost."
+      },
+      {
+        "key": "C",
+        "text": "Continue operating in the short run because price covers total cost."
+      },
+      {
+        "key": "D",
+        "text": "Shut down immediately because the price is below the average total cost."
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A technology company plans to launch a new electronic device with a production forecast of 40,000 units. The budgeted costs for the product are:\nDirect materials: $240,000\nDirect labor: $200,000\nVariable overhead: $120,000\nFixed manufacturing overhead: $80,000\nSelling and administrative expenses: $60,000\nManagement wants to price the product based only on manufacturing costs and earn a 25% profit on the selling price. What is the target selling price per unit?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$20.00."
+      },
+      {
+        "key": "B",
+        "text": "$23.33."
+      },
+      {
+        "key": "C",
+        "text": "$21.33."
+      },
+      {
+        "key": "D",
+        "text": "$21.88."
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A consumer electronics company is preparing to launch a new wearable device with innovative health-monitoring features. The company is targeting early adopters and plans to recover development costs quickly while maximizing short-term profit. It expects minimal competition at launch but anticipates more entrants within 12–18 months. Based on this strategy, which pricing approach is most appropriate?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Market skimming, because it allows the company to charge a high price initially and reduce it as competition increases."
+      },
+      {
+        "key": "B",
+        "text": "Captive-product pricing, because the wearable will require accessory purchases to function properly."
+      },
+      {
+        "key": "C",
+        "text": "Product-bundle pricing, because bundling this device with other products will generate higher perceived value."
+      },
+      {
+        "key": "D",
+        "text": "Market penetration pricing, because it will maximize market share quickly through volume-based sales"
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A consumer goods company is developing a new product and has determined its market-based target price and target operating income. However, the estimated cost per unit based on initial design exceeds the target cost. Which of the following actions is the most appropriate next step for the company under a value engineering approach?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Analyze the product's value chain to reduce or eliminate nonvalue-added costs while preserving functionality."
+      },
+      {
+        "key": "B",
+        "text": "Postpone cost reductions until after the product is launched and operational feedback is available."
+      },
+      {
+        "key": "C",
+        "text": "Eliminate all value-added costs to reduce total cost."
+      },
+      {
+        "key": "D",
+        "text": "Increase the target price to match the actual cost and desired profit margin."
+      }
+    ],
+    "correct_key": "A",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "LMV Corp. produces a high-quality speaker system that sells for $200 each. The variable cost to produce one speaker is $120. Recently, LMV Corp decided to enhance their marketing efforts to boost sales, increasing their annual fixed costs from $100,000 to $120,000. Assuming these are the only changes, by how much will the breakeven point in units for LMV Corp change after the company's fixed costs increase?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "No change in the breakeven point."
+      },
+      {
+        "key": "B",
+        "text": "250 unit decrease."
+      },
+      {
+        "key": "C",
+        "text": "250 unit increase."
+      },
+      {
+        "key": "D",
+        "text": "1,500 unit increase."
+      }
+    ],
+    "correct_key": "A",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Mitashi Sales carries two models of Vehicles, the Sedan and the Hatchback.\nSedan: Selling price $40,000, variable cost $25,000\nHatchback: Selling price $50,000, variable cost $30,000\nSedan sales represent 40% of Mitashis revenues, while Hatchback revenues represent 60% of Mitashis  revenues. The company’s total fixed costs are $5,850,000. What is the breakeven sales volume for Mitashi?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "344 units."
+      },
+      {
+        "key": "B",
+        "text": "325 units."
+      },
+      {
+        "key": "C",
+        "text": "350 units."
+      },
+      {
+        "key": "D",
+        "text": "330 units."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "A company with unused production capacity has been approached to fulfill a one-time order of 60,000 units of a component that could be produced using existing equipment but with custom specifications that would require some recalibration of the equipment. The order could be completed using equipment that would otherwise be idle during June. Which of the following costs is relevant for deciding whether to accept the special order?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The lease payment on the factory building used for production."
+      },
+      {
+        "key": "B",
+        "text": "The depreciation on the production equipment used to manufacture the product."
+      },
+      {
+        "key": "C",
+        "text": "The cost of warehousing raw material inventory that will remain after June."
+      },
+      {
+        "key": "D",
+        "text": "The cost of recalibrating the equipment for the special order."
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Desks\nChairs\nWeekly units produced\n400\n600\nMachine hours/unit\n1.0\n0.5\nSelling price\n$250\n$160\nVariable cost\n$120\n$100\nA new customer asks to purchase 250 desks, but to fill the order, Sigma would need to give up production of 500 chairs. Sigma’s management would like to get the business from this new customer. What is the minimum price per desk that D should charge?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$250.01."
+      },
+      {
+        "key": "B",
+        "text": "$240.01."
+      },
+      {
+        "key": "C",
+        "text": "$120.01."
+      },
+      {
+        "key": "D",
+        "text": "$180.01."
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "The manager at Marys Floral Bouquets is worried about potential regulatory changes in the floral industry and how these changes might impact the company’s net income. Which of the following analyseswould be most helpful in identifying the potential impact of the changes?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Margin of safety analysis on sales"
+      },
+      {
+        "key": "B",
+        "text": "Sensitivity analysis on C-V-P computations"
+      },
+      {
+        "key": "C",
+        "text": "Variance analysis on current and expected contribution margins"
+      },
+      {
+        "key": "D",
+        "text": "Vertical analysis on financial statements"
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Diot Company sells one product for $21 with a contribution margin of $14 per unit. Diotes’s total fixed costs are $21,000. During April actual sales were 4,000 units. How much is the margin of safety for April?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$56,000"
+      },
+      {
+        "key": "B",
+        "text": "$31,500"
+      },
+      {
+        "key": "C",
+        "text": "$52,500"
+      },
+      {
+        "key": "D",
+        "text": "$84,000"
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "The ANV Company decides to implement target costing. After conducting market research, it determines that it will be able to charge $100 per unit for its product. If ANV Company wants to earn a 25% mark-up on its total cost, what is the maximum cost per unit allowed for this product?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$75 per unit"
+      },
+      {
+        "key": "B",
+        "text": "$125 per unit"
+      },
+      {
+        "key": "C",
+        "text": "$80 per unit"
+      },
+      {
+        "key": "D",
+        "text": "$20 per unit"
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Feyok Industries is planning to introduce a new product, DMA. It is expected that 10,000 units of DMA will be sold. The full cost per unit is $300. Invested capital for this product amounts to $20 million. Feyok's target rate of return on investment is 20%. The markup percentage for this product, based on the full cost, will be:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "666.67%."
+      },
+      {
+        "key": "B",
+        "text": "133.3%."
+      },
+      {
+        "key": "C",
+        "text": "75.0%."
+      },
+      {
+        "key": "D",
+        "text": "20.0%."
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Which of the following costs is not relevant in a decision to purchase or lease a new piece of equipment?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Cost of insurance coverage"
+      },
+      {
+        "key": "B",
+        "text": "Interest rate of cash account where the purchase money is being held"
+      },
+      {
+        "key": "C",
+        "text": "Fees and imputed interest of the lease"
+      },
+      {
+        "key": "D",
+        "text": "Buy-out price at the end of the lease"
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "If a company desires to achieve a targeted after-tax profit of $34,000 in the first year of the launch of its new washing machine, what amount of pre-tax operating profit is it using to solve the C-V-P formula? The company's income tax rate is 30%.",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$34,000"
+      },
+      {
+        "key": "B",
+        "text": "$48,571"
+      },
+      {
+        "key": "C",
+        "text": "$44,200"
+      },
+      {
+        "key": "D",
+        "text": "$26,154"
+      }
+    ],
+    "correct_key": "A",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "When the corporate income tax rate decreases, what is the most likely result?\nA The number of units needed to be sold to earn a target net income decreases.\nB The number of units needed to be sold to break even decreases.\nC The number of units needed to be sold to break even increases.\nD The number of units needed to be sold to earn a target net income does not change.\n30.  Tony&sons produces fly fishing equipment. Last year the company produced and sold 15,000 of its standard fishing reels at $185 per unit. Variable costs to produce the 15,000 fishing reels were $65 per unit, and fixed costs were $75 per unit. The marketing department has estimated sales for the upcoming year of 18,000 units, which is within the company's relevant range for production costs for its standard fishing reels. For its line of standard fishing reels, what is Tony&sons breakeven point in units and expected operating profit for the upcoming year?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "11,250 units to breakeven and $810,000 in operating profit"
+      },
+      {
+        "key": "B",
+        "text": "17,308 units to breakeven and $45,000 in operating profit"
+      },
+      {
+        "key": "C",
+        "text": "8,599 units to breakeven and $1,230,000 in operating profit"
+      },
+      {
+        "key": "D",
+        "text": "9,375 units to breakeven and $1,035,000 in operating profit"
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Which one of the following situations best lends itself to a cost-based pricing approach?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "An industrial equipment fabricator negotiating pricing for one of itsstandard models with a major steel manufacturer"
+      },
+      {
+        "key": "B",
+        "text": "A computer component manufacturer debating pricing terms with a customer in a new channel of distribution"
+      },
+      {
+        "key": "C",
+        "text": "A paper manufacturer negotiating the price for supplying copy paper to a new mass merchandiser of office products"
+      },
+      {
+        "key": "D",
+        "text": "A computer component manufacturer debating pricing with a new customer for a made-to-order, state-of-the-art application"
+      }
+    ],
+    "correct_key": "A",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "MDP Corporation sells headphones that have a selling price of $200 and a contribution margin ratio of 0.4. Variable costs are expected toincrease $10 a unit next year with no change to the selling price. Calculate the new contribution margin ratio.",
+    "choices": [
+      {
+        "key": "A",
+        "text": "0.60"
+      },
+      {
+        "key": "B",
+        "text": "0.35"
+      },
+      {
+        "key": "C",
+        "text": "0.40"
+      },
+      {
+        "key": "D",
+        "text": "0.55"
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Under which type or types of markets are short-run equilibrium prices that maximize profits based on marginal revenue equaling marginal cost?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Pure competition markets only"
+      },
+      {
+        "key": "B",
+        "text": "Monopolistic competition markets only"
+      },
+      {
+        "key": "C",
+        "text": "Pure competition and monopolistic competition markets but not in a monopoly market"
+      },
+      {
+        "key": "D",
+        "text": "Pure competition, monopolistic competition, and monopoly markets"
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "The JUT Company is introducing a new product. Its research indicates that a significant number of customers will pay a premium price to obtain this product as soon as it is released. However, a considerable number of competitors will introduce similar products within two months of its release. How should JUT determine its selling price?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "It should use target costing."
+      },
+      {
+        "key": "B",
+        "text": "It should take a price-skimming approach."
+      },
+      {
+        "key": "C",
+        "text": "It should take a penetration pricing approach."
+      },
+      {
+        "key": "D",
+        "text": "It should take a premium pricing approach."
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "Cafe Coffee is using the target cost approach on a new product. Cafe expects to sell 200,000 servings of a new upscale coffee drink in its coffee kiosks. Its desired profit is $1.40 per serving and the target cost is $504,000. What must be the market selling price per serving?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$2.52"
+      },
+      {
+        "key": "B",
+        "text": "$1.12"
+      },
+      {
+        "key": "C",
+        "text": "$1.40"
+      },
+      {
+        "key": "D",
+        "text": "$3.92"
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "The Lanterns Corporation has 1,000 obsolete lanterns that are carried in inventory at a manufacturing cost of $20,000. If the lanterns are remachined for $5,000, they can be sold for $9,000. If the lanterns are scrapped, they can be sold for $1,000. What alternative is more desirable and what is the cash flow under that alternative?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Remachine; $24,000"
+      },
+      {
+        "key": "B",
+        "text": "Scrap; $21,000"
+      },
+      {
+        "key": "C",
+        "text": "Remachine; $4,000"
+      },
+      {
+        "key": "D",
+        "text": "Scrap; $1,000"
+      }
+    ],
+    "correct_key": "B",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "If the price elasticity of demand is 1.5 and a change in the price of the product increases the quantity demanded by 4%, then what is the percent change in price?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Decrease of 2.667%"
+      },
+      {
+        "key": "B",
+        "text": "Decrease of 0.375%"
+      },
+      {
+        "key": "C",
+        "text": "Increase of 0.375%"
+      },
+      {
+        "key": "D",
+        "text": "Increase of 2.667%"
+      }
+    ],
+    "correct_key": "D",
+    "section": "C"
+  },
+  {
+    "topic": "Decision Analysis",
+    "stem": "BigTown Café sells 30 dozen cupcakes each month. The costs associated with each dozen consist of $2.05 in direct materials, $2.75 in direct labor, $1.45 in variable overhead, and $1.30 in fixed overhead. Bob’s Baking Company has offered to sell the café 30 dozen cupcakes per month for $200. If BigTown accepts the offer, its fixed overhead costs will be reduced by 10%. What is the highest price BigTown should be willing to pay Bob’s Baking Company per dozen cupcakes?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$6.25"
+      },
+      {
+        "key": "B",
+        "text": "$7.42"
+      },
+      {
+        "key": "C",
+        "text": "$6.38"
+      },
+      {
+        "key": "D",
+        "text": "$4.93"
+      }
+    ],
+    "correct_key": "C",
+    "section": "C"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Systematic risk\n\ncauses variability of a firm’s earnings.\n\nis risk that is specific to a company.\n\nis risk that all investments are exposed to.\n\ncan be mitigated by diversifying investments within a portfolio.\n\n2. Which of the following is not a part of the process of risk assessment?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Considering the likelihood of each risk’s occurring."
+      },
+      {
+        "key": "B",
+        "text": "Considering the interrelationship of the risks."
+      },
+      {
+        "key": "C",
+        "text": "Calculating the expected loss from each event."
+      },
+      {
+        "key": "D",
+        "text": "Analyzing the potential impact of each risk event if it does occur."
+      }
+    ],
+    "correct_key": "C",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Randall Insurance Corporation provides property and casualty insurance to individuals and businesses. Randall has significant investments in debt securities issued by governments and corporations. To protect the market value of its debt securities portfolio in the event of an increase in market interest rates, Randall Insurance sells interest rate futures contracts. If market interest rates increase and the market value of the debt securities it holds decreases, Randall will be able to buy interest rate futures contracts having the same terms as the futures contracts it has sold, but at a lower price, and it will receive a gain in its brokerage account that will offset its loss on its debt securities portfolio.\n\nWhat type of risk response is the sale by Randall Insurance of interest rate futures contracts?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Randall is reducing or mitigating the risk."
+      },
+      {
+        "key": "B",
+        "text": "Randall is transferring or sharing the risk."
+      },
+      {
+        "key": "C",
+        "text": "Randall is avoiding or eliminating the risk."
+      },
+      {
+        "key": "D",
+        "text": "Randall is exploiting or accepting the risk"
+      }
+    ],
+    "correct_key": "C",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "A risk map is used for\n\ndetermining loss severity\n\nqualitative risk assessment.\n\nquantitative risk assessment.\n\nquantitative risk assessment.\n\n5. An important part of the process of enterprise risk management is prioritizing identified risks in order to determine which will be addressed first. Indubitable Company has identified four risks, the amount of each loss if the risk does occur, and the probability of each risk’s occurring during a one-year period, as follows:\n\nAmount of Loss,      , Probability, ,\n\nRisk #1                                                  , $600,000      ,  , 5%\n\nRisk #2                                                      500,000      ,  , 10%\n\nRisk #3                                                      300,000      ,  , 20%\n\nRisk #4                                                       80,000      ,  , 25%\n\nWhich risk should Indubitable address first?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Risk #2."
+      },
+      {
+        "key": "B",
+        "text": "Risk #3."
+      },
+      {
+        "key": "C",
+        "text": "Risk #1."
+      },
+      {
+        "key": "D",
+        "text": "Risk #4."
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "An important part of the process of enterprise risk management is prioritizing identified risks in order to determine which will be addressed first. Indubitable Company has identified four risks, the amount of each loss if the risk does occur, and the probability of each risk’s occurring during a one-year period, as follows\n\nAmount of Loss,      , Probability,\n\nRisk #1                                              $600,000      ,  , 5%\n\nRisk #2                                                500,000      ,  , 10%\n\nRisk #3                                                300,000      ,  , 20%\n\nRisk #4                                                   80,000      ,  , 25%\n\nWhat is the probability that Risk #1 will not occur during the one-year period?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "55%."
+      },
+      {
+        "key": "B",
+        "text": "5%."
+      },
+      {
+        "key": "C",
+        "text": "25%."
+      },
+      {
+        "key": "D",
+        "text": "95%."
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "The silo approach to risk management\n\nevaluates risks as individual, standalone events.\n\nis similar to an agricultural silo in that potential risk events are input at the top and the resulting expected losses are output at the bottom.\n\nattempts to make certain that the organization is secure and protected against risks in much the same way as an agricultural silo secures and protects grain.\n\ninvolves evaluating risks as portfolios, that is, in terms of the way they interrelate with other risks.\n\n8. What is the major difference between traditional risk management and Enterprise Risk Management (ERM)?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Traditional risk management focuses on risks that can be mitigated by insurance, whereas ERM includes risks that cannot be mitigated by insurance but can be mitigated in other ways."
+      },
+      {
+        "key": "B",
+        "text": "Traditional risk management prepares an organization to respond to specific, recognized events that could prevent the organization from achieving its objectives. ERM prepares the organization to respond to any event that could prevent it from achieving its objectives, whether or not the event has been previously recognized as a risk."
+      },
+      {
+        "key": "C",
+        "text": "Traditional risk management considers only risks that could have a negative effect on the organization, whereas ERM includes risks that could have either a negative or a positive effect on the organization."
+      },
+      {
+        "key": "D",
+        "text": "In traditional risk management, each individual business unit does its own risk management, whereas with ERM, the major risk areas for the organization as a whole are identified, and the individual units use that as a basis to define the specific risks they face."
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following statements is most accurate concerning inherent risk?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Inherent risk results in greater losses than operational risk."
+      },
+      {
+        "key": "B",
+        "text": "Inherent risk is the level of risk that remains after management has taken actions to mitigate the risk."
+      },
+      {
+        "key": "C",
+        "text": "Management can eliminate inherent risk by taking mitigating actions."
+      },
+      {
+        "key": "D",
+        "text": "None of the above."
+      }
+    ],
+    "correct_key": "D",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "10 .Which of the following measures indicates the potential loss a firm faces due to its trading activities?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Economic value added"
+      },
+      {
+        "key": "B",
+        "text": "Value at Risk"
+      },
+      {
+        "key": "C",
+        "text": "Other comprehensive income"
+      },
+      {
+        "key": "D",
+        "text": "Return on investment"
+      }
+    ],
+    "correct_key": "A",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following statements is correct?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Cash flow at risk is a quantitative risk assessment tool that measures the maximum loss for a given period in terms of cash flow."
+      },
+      {
+        "key": "B",
+        "text": "Cash flow at risk is a quantitative risk assessment tool that measures the maximum loss for a given period in terms of accrual earnings"
+      },
+      {
+        "key": "C",
+        "text": "Cash flow at risk is a quantitative risk assessment tool that utilizes graphs of potential returns and the probabilities of those returns to assess risk."
+      },
+      {
+        "key": "D",
+        "text": "Cash flow at risk is a qualitative risk assessment tool where management uses intuition to estimate how much cash flow will be lost from a given risk."
+      }
+    ],
+    "correct_key": "D",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following is an example of business risk?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The possibility that ABC Company’s profit will be below expectations."
+      },
+      {
+        "key": "B",
+        "text": "The possibility that ABC Company’s cash flow will not be sufficient for its shareholders to recover the cash invested in the business"
+      },
+      {
+        "key": "C",
+        "text": "The possibility that ABC Company’s strategy will be insufficient to achieve its objectives and maximize shareholder value"
+      },
+      {
+        "key": "D",
+        "text": "The possibility that ABC Company will suffer a loss due to inadequate processes or systems"
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following statements concerning volatility and time is correct?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Higher volatility and shorter time to an event both increase the risk associated with the event."
+      },
+      {
+        "key": "B",
+        "text": "Lower volatility and longer time to an event both increase the risk associated with the event"
+      },
+      {
+        "key": "C",
+        "text": "Lower volatility and shorter time to an event both increase the risk of the event"
+      },
+      {
+        "key": "D",
+        "text": "Higher volatility and longer time to an event both increase the risk associated with the event."
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following actions would a less risk averse management team likely take?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Increasing the amount of insurance coverage on a building"
+      },
+      {
+        "key": "B",
+        "text": "Decreasing credit standards and offering larger credit limits"
+      },
+      {
+        "key": "C",
+        "text": "A financial institution decreasing lending to sub-prime borrowers and increasing lending to borrowers with excellent credit"
+      },
+      {
+        "key": "D",
+        "text": "Increasing the use of options to lock in the amount of dollars to be received from sales made in foreign currency"
+      }
+    ],
+    "correct_key": "A",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following statements is correct?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "A less risk averse management team is less likely to take on risk and a more risk averse management team is more likely to take on risk"
+      },
+      {
+        "key": "B",
+        "text": "A less risk averse management team is more likely to take on risk and a more risk averse management team is not impacted by the risk of a project."
+      },
+      {
+        "key": "C",
+        "text": "A less risk averse management team is not impacted by the risk of a project and a more risk averse management team is less likely to take on risk."
+      },
+      {
+        "key": "D",
+        "text": "A less risk averse management team is more likely to take on risk and a more risk averse management team is less likely to take on risk."
+      }
+    ],
+    "correct_key": "A",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "The DFE Company needs to have 10,000 euros on a specific date in the future to pay a debt. It decides to purchase a forward contract to guarantee the price it will pay in dollars for 10,000 euros on the day they are needed. What risk response strategy has DFE employed?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Risk reduction (mitigation)"
+      },
+      {
+        "key": "B",
+        "text": "Risk-retention"
+      },
+      {
+        "key": "C",
+        "text": "Risk exploitation"
+      },
+      {
+        "key": "D",
+        "text": "Risk avoidance"
+      }
+    ],
+    "correct_key": "D",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following actions is an example of risk retention?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Purchasing flood insurance on an office building"
+      },
+      {
+        "key": "B",
+        "text": "Investing cash every quarter in a money market mutual fund to pay for possible flood damages to an office building"
+      },
+      {
+        "key": "C",
+        "text": "Using fire retardant materials in the construction of an office building"
+      },
+      {
+        "key": "D",
+        "text": "Having fire extinguishers placed throughout an office building"
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following is an example of a company transferring risk?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Purchasing fire insurance"
+      },
+      {
+        "key": "B",
+        "text": "Investing resources in fireproofing its building"
+      },
+      {
+        "key": "C",
+        "text": "Setting aside funds to pay for fire damage"
+      },
+      {
+        "key": "D",
+        "text": "Only building in locations that are not prone to fires"
+      }
+    ],
+    "correct_key": "D",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following actions is an example of risk avoidance?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "No longer selling on credit"
+      },
+      {
+        "key": "B",
+        "text": "Purchasing fire insurance"
+      },
+      {
+        "key": "C",
+        "text": "Installing anti-spyware software"
+      },
+      {
+        "key": "D",
+        "text": "Investing in biotechnology stocks rather than in utility stocks"
+      }
+    ],
+    "correct_key": "A",
+    "section": "D"
+  },
+  {
+    "topic": "Risk Management",
+    "stem": "Which of the following is a way a company can practice risk transfer?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Doubling the amount of sexual harassment training employees receive"
+      },
+      {
+        "key": "B",
+        "text": "A pension fund deciding to stop investing in highly rated corporate bonds and put all its assets into risky stocks instead"
+      },
+      {
+        "key": "C",
+        "text": "A manufacturer removing a raw material that is dangerous to handle and dispose of from its products and replacing it with a less hazardous but more expensive raw material"
+      },
+      {
+        "key": "D",
+        "text": "Purchasing an insurance policy to cover a warehouse and its contents in case of theft or damage"
+      }
+    ],
+    "correct_key": "B",
+    "section": "D"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "INVESTMENT DECISIONS\n\n\n\nSolaris Energy uses a base WACC of 9% for average-risk projects. A new high-risk offshore project is assigned a risk premium of 4%. The project generates annual after-tax cash flows of $200,000 for 6 years with an initial outlay of $900,000. PV annuity factor (13%, 6 years) = 3.9976,  (9%, 6 years ) = 4.486.  Should the project be accepted?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Yes; NPV = $99,520, which is positive"
+      },
+      {
+        "key": "B",
+        "text": "No; NPV = –$100,480, which is negative"
+      },
+      {
+        "key": "C",
+        "text": "Yes; NPV = $300,000 using the base WACC"
+      },
+      {
+        "key": "D",
+        "text": "No; the risk-adjusted rate always produces a lower NPV than the base WACC"
+      }
+    ],
+    "correct_key": "B",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Project Zenith has an IRR of 14% and Project Atlas has an IRR of 11%. Both are mutually exclusive, and the firm's WACC is 10%. The crossover rate between the two NPV profiles is 12%. Which project should be selected if the discount rate is 10%?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Project Zenith, because its IRR is higher"
+      },
+      {
+        "key": "B",
+        "text": "Project Atlas, because at 10% its NPV exceeds Project Zenith's NPV"
+      },
+      {
+        "key": "C",
+        "text": "Either project, since both IRRs exceed the WACC"
+      },
+      {
+        "key": "D",
+        "text": "Neither project, since the crossover rate is above the WACC"
+      }
+    ],
+    "correct_key": "B",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Apex Manufacturing is evaluating a project requiring an initial investment of $500,000. The project will generate after-tax cash inflows of $150,000 per year for 5 years. The firm's WACC is 10%. What is the project's NPV? (PV annuity factor, 10%, 5 years = 3.7908)\n\n\n\n$31,000\n\n$(68,600)\n\n$150,000\n\n$68,620\n\n\n\n\n\n\n\nWhen estimating incremental cash flows for a capital budgeting decision, which of the following should be excluded?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Opportunity costs associated with the project"
+      },
+      {
+        "key": "B",
+        "text": "Changes in net working capital"
+      },
+      {
+        "key": "C",
+        "text": "Sunk costs incurred prior to the decision"
+      },
+      {
+        "key": "D",
+        "text": "Terminal salvage value of the asset"
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Calamity Cauliflower Corporation is considering undertaking a capital project. The company would have to commit $24,000 of working capital in addition to an immediate outlay of $160,000 for new equipment. The project is expected to generate $100,000 of annual income for 10 years. At the end of that time, the new equipment, which will be depreciated on a straight-line basis, is expected to have a salvage value of $10,000.\n\nThe existing equipment that would be sold to make room for the project has a historical cost of $220,000 and accumulated depreciation of $208,000. It has an estimated remaining useful life of 2 years and the remaining carrying amount is being depreciated on a straight-line basis. A scrap dealer has agreed to buy it for $8,000. The company’s effective tax rate is 40%.\n\nCalculate the expected total cash inflow in the final year of the project.\n\n\n\n$100,400\n\n$96,400\n\n$90,000\n\n$72,400\n\n\n\n\n\n\n\nKR Company is evaluating the leasing of laptops for the marketing staff. KR is expecting to hire more marketing staff in the near future. Supplier A is offering to lease enough laptops for the current marketing staff. Supplier B is offering to lease enough laptops for the current marketing staff, and for an extra fee will make available additional laptops at the current leasing price. The real option included in Supplier B's offer is an:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Option to expand."
+      },
+      {
+        "key": "B",
+        "text": "Option to delay."
+      },
+      {
+        "key": "C",
+        "text": "Option to abandon."
+      },
+      {
+        "key": "D",
+        "text": "Option to postpone"
+      }
+    ],
+    "correct_key": "C",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "When undertaking net present value calculations, an assumption is typically made that net cash inflows occur at the end of a given year. In reality, net cash flows usually occur throughout the year. What impact does that assumption of year-end net cash flows have on net present value (NPV)?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "It has no impact on NPV because the total cash flows are the same."
+      },
+      {
+        "key": "B",
+        "text": "The NPV will be understated."
+      },
+      {
+        "key": "C",
+        "text": "The NPV will be overstated."
+      },
+      {
+        "key": "D",
+        "text": "The direction and significance of the impact on NPV cannot be determined."
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "MJ Industries is choosing between two projects. Both projects have similar payback periods and net present values. Project A involves a licensing arrangement with an option to abandon, which makes the project less risky than Project B, which requires the purchase of machinery with little resale value if the project fails. MJ Industries should calculate the net present value of each project:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Using the company's weighted average cost of capital."
+      },
+      {
+        "key": "B",
+        "text": "Using a lower discount rate for Project A than Project B."
+      },
+      {
+        "key": "C",
+        "text": "Using a higher discount rate for Project A than Project B."
+      },
+      {
+        "key": "D",
+        "text": "Using a discount rate of zero for Project A since it is not risky"
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Walker Labs is evaluating an investment opportunity that is expected to cost $210,000 with a seven-year life. Walker uses straight line depreciation; and the asset is expected to have no salvage value. When evaluating projects, management has set a payback goal of three years for purchases of new equipment. To meet its goal, how much must Walker save in operating costs each year? Assume an effective tax rate of 30%.\n\n\n\n$40,035\n\n$61,130\n\n$70,000\n\n$87,143\n\n\n\n\n\n\n\nThe Floyd's Flooring management team is considering purchasing a new piece of equipment for $27,500. They expect it to have a five-year life with annual cash flows as shown.\n\nYear 1 $5,400\n\nYear 2 $7,900\n\nYear 3 $8,400\n\nYear 4 $6,800\n\nYear 5 $3,700\n\nCash flows will be received evenly throughout the year. Floyd's has a 7% hurdle rate on purchases of new equipment. What is the payback and discounted payback period?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Payback 3.85 years; Discounted Payback greater than 5 years."
+      },
+      {
+        "key": "B",
+        "text": "Payback 4.85 years; Discounted Payback greater than 5 years."
+      },
+      {
+        "key": "C",
+        "text": "Payback and Discounted Payback both greater than 5 years."
+      },
+      {
+        "key": "D",
+        "text": "Payback and Discounted Payback both 4.85 years."
+      }
+    ],
+    "correct_key": "B",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Investment project A will require an initial investment pf $430,000 and is expected to generate after tax net cash inflows of $113,500 each year over the project's five-year life. Management has established a hurdle rate of 12% on similar investments. What is the investment's expected internal rate of return and should the company invest in the project?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Less than the 12% hurdle; reject the project"
+      },
+      {
+        "key": "B",
+        "text": "Equal to the 12% hurdle; indifferent about investing in the project"
+      },
+      {
+        "key": "C",
+        "text": "Greater than the 12% hurdle; invest in the project"
+      },
+      {
+        "key": "D",
+        "text": "Unable to determine the internal rate of return with the information provided"
+      }
+    ],
+    "correct_key": "B",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "In regard to a capital investment project, if the calculated internal rate of return equals the hurdle rate, the net present value will be:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Negative."
+      },
+      {
+        "key": "B",
+        "text": "Positive."
+      },
+      {
+        "key": "C",
+        "text": "Equal to zero."
+      },
+      {
+        "key": "D",
+        "text": "Cannot be computed with the information provided."
+      }
+    ],
+    "correct_key": "D",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Which of the following is a feature of internal rate of return?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The discount rate can easily be adjusted up or down depending upon the level of risk of a company."
+      },
+      {
+        "key": "B",
+        "text": "The calculation depends upon the size of the project."
+      },
+      {
+        "key": "C",
+        "text": "Internal rate of return assumes reinvestment at the weighted average cost of capital."
+      },
+      {
+        "key": "D",
+        "text": "Internal rate of return does not require an estimate of the cost of capital or a hurdle rate."
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Which of the following is a way that changes in the expected inflation rate can be reflected in capital budgeting?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "There is no need to account for the inflation rate in capital budgeting."
+      },
+      {
+        "key": "B",
+        "text": "Multiply the incremental operating cash flows by 1 + the inflation rate to calculate future nominal cash flows which are then discounted at the nominal rate of return."
+      },
+      {
+        "key": "C",
+        "text": "Divide the incremental operating cash by 1+ the inflation rate to calculate future nominal cash flows which are then discounted at the nominal rate of return."
+      },
+      {
+        "key": "D",
+        "text": "Multiply the incremental operating cash flows by 1 + the inflation rate to calculate future nominal cash flows which are then discounted at the real rate of return."
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Pachyderm Moving is reviewing data related to a new moving truck investment proposal. The new truck will cost $116,000 and have a five year useful life. Management estimates that at the end of its useful life, the new truck will be sold for $20,000; however, when calculating depreciation the $20,000 is not subtracted from the cost. Therefore, at the end of the five-year life, the truck will have a basis of $0. Pachyderm expects that the annual net after-tax cash savings will be equal to $27,000. Assume an effective tax rate of 50%. Also assume that straight-line depreciation is being used and that Pachyderm's management has set a 9% hurdle rate on similar investments. What is the net present value of the new moving truck?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "($4,470)"
+      },
+      {
+        "key": "B",
+        "text": "$111,540"
+      },
+      {
+        "key": "C",
+        "text": "$(10,979)"
+      },
+      {
+        "key": "D",
+        "text": "$29,000"
+      }
+    ],
+    "correct_key": "C",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Staten Corporation is considering two mutually exclusive projects. Both requires an initial outlay of $150,000 and will operate for five years. The cash flows associated with these projects are as follow\n\n\n\nYear                                     Project Y                             Project X\n\n\n\n1                                         $47,000                               $    0\n\n2                                            47,000                                     0\n\n3                                            47,000                                     0\n\n4                                            47,000                                     0\n\n5                                            47,000                               280,000\n\n\n\nStaten’s required rate of return is 10%. Using the NPV method, which one of the following actions would you recommend to Staten ?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Accept Project Y, and reject Project X"
+      },
+      {
+        "key": "B",
+        "text": "Accept both"
+      },
+      {
+        "key": "C",
+        "text": "Reject both"
+      },
+      {
+        "key": "D",
+        "text": "Accept Project X, and reject project Y"
+      }
+    ],
+    "correct_key": "D",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Sensitivity analysis, if used with capital projects,\n\n\n\nMeasures the change in discounted cash flows when using the discounted payback method rather than the net present value method.\n\nIs a technique used to rank capital expenditure request.\n\nIs a “what-if” technique that asks how a given outcome will change if the original estimates of the capital budgeting model are changed.\n\nIs used extensively when cash flows are known with certainty.\n\n\n\n\n\n\n\nNovaTech invests $80,000 in a project with the following annual cash flows: Year 1: $25,000; Year 2: $30,000; Year 3: $35,000; Year 4: $20,000. The discount rate is 10%. PV factors: Y1=0.909, Y2=0.826, Y3=0.751, Y4=0.683. What is the discounted payback period (rounded to nearest year)?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "2.5 years"
+      },
+      {
+        "key": "B",
+        "text": "3 years"
+      },
+      {
+        "key": "C",
+        "text": "3.5 years"
+      },
+      {
+        "key": "D",
+        "text": "The project never recovers the investment"
+      }
+    ],
+    "correct_key": "B",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Compared to the traditional payback period, the discounted payback period:",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Always produces a shorter recovery time"
+      },
+      {
+        "key": "B",
+        "text": "Ignores the time value of money"
+      },
+      {
+        "key": "C",
+        "text": "Uses discounted cash flows and therefore produces an equal or longer recovery time"
+      },
+      {
+        "key": "D",
+        "text": "Is identical to the NPV method"
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "A company purchases equipment for $400,000, depreciates it straight-line over 5 years (zero salvage), and has a tax rate of 35%. What is the annual depreciation tax shield?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "$28,000"
+      },
+      {
+        "key": "B",
+        "text": "$80,000"
+      },
+      {
+        "key": "C",
+        "text": "$52,000"
+      },
+      {
+        "key": "D",
+        "text": "$140,000"
+      }
+    ],
+    "correct_key": "A",
+    "section": "E"
+  },
+  {
+    "topic": "Investment Decisions",
+    "stem": "Managers at a motorcycle company are considering expanding the showroom and service areas. The investment for this project will be $575,000. They expect it to have a 10-year life with incremental annual cash flows of $117,000 per year. Cash flows will be received evenly throughout the year. The company requires a 12% rate of return on projects of this type. What is the payback period?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "7.9 years"
+      },
+      {
+        "key": "B",
+        "text": "5.5 years"
+      },
+      {
+        "key": "C",
+        "text": "8.5 years"
+      },
+      {
+        "key": "D",
+        "text": "4.9 years"
+      }
+    ],
+    "correct_key": "C",
+    "section": "E"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "Within Miami Corporation, the sales team has been offered significant personal bonuses if they reach an exceptionally high sales target for the quarter. This has led to an aggressive sales environment where some team members have started misrepresenting product capabilities to close deals. Additionally, market competition has intensified, and a leading competitor has been accused of unethical business practices, indirectly benefiting Miami Corporation. Given these internal and external pressures, which of the following should the sales manager prioritize to encourage ethical behavior?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Encourage sales staff to continue current practices as long as internal sales targets are met and there is no direct legal challenge."
+      },
+      {
+        "key": "B",
+        "text": "Implement a compensation policy that ties bonuses strictly to the ethical standards upheld during sales, regardless of targets met."
+      },
+      {
+        "key": "C",
+        "text": "Address the competitive environment by adopting similar practices as competitors to sustain market position."
+      },
+      {
+        "key": "D",
+        "text": "Focus solely on the legal aspects of the sales process and ensure that all transactions comply with the relevant laws."
+      }
+    ],
+    "correct_key": "B",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "As the new financial manager for a software development firm, Rahul was tasked with overseeing a complex project that required specialized knowledge in cybersecurity which he did not possess. Despite this, Rahul chose not to disclose his lack of expertise to his superiors and proceeded to oversee the project. Several weeks into the project, critical vulnerabilities were missed, leading to a significant data breach. Which ethical standard of the IMA Statement of Ethical Professional Practice did Rahul fail to uphold?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Competence."
+      },
+      {
+        "key": "B",
+        "text": "Integrity"
+      },
+      {
+        "key": "C",
+        "text": "Objectivity"
+      },
+      {
+        "key": "D",
+        "text": "Confidentiality"
+      }
+    ],
+    "correct_key": "A",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "The accounting department at Fabstech Inc. discovered a significant error in their reported earnings, which overstated profits for the previous quarter. When the error was brought to the attention of the chief accountant, Antony, he decided not to correct the financial records or disclose the error, believing it would negatively impact the pending bonus calculations for the department and stir investor anxiety. By choosing this course of action, which ethical standard of the IMA Statement of Ethical Professional Practice did Antony fail to uphold?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Credibility."
+      },
+      {
+        "key": "B",
+        "text": "Objectivity."
+      },
+      {
+        "key": "C",
+        "text": "Confidentiality"
+      },
+      {
+        "key": "D",
+        "text": "Competence"
+      }
+    ],
+    "correct_key": "A",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "In an effort to secure a much-needed bank loan for her company, Global Solutions' CEO Mary thomas presented financial projections to the bank that were significantly more optimistic than what internal forecasts actually predicted. She rationalized this decision by believing that once the loan was secured, the company could indeed reach these targets with the extra financial boost. However, when these projections failed to materialize, the bank considered legal action for misrepresentation. Which ethical standard of the IMA Statement of Ethical Professional Practice did Mary thomas fail to uphold?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Confidentiality"
+      },
+      {
+        "key": "B",
+        "text": "Integrity"
+      },
+      {
+        "key": "C",
+        "text": "Honesty"
+      },
+      {
+        "key": "D",
+        "text": "Credibility"
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "At  Deikin Enterprises, the finance team noticed irregularities in expense reports submitted by a department head, Tony. Upon investigation, it was discovered that Tony had been submitting false expense claims for personal gain. Considering the components of the fraud triangle (Pressure, Opportunity, and Rationalization), which action should Deikin Enterprises take to address the root causes of this fraud and prevent future occurrences?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Publicly reprimand Tony to set an example for other employees and deter similar behavior."
+      },
+      {
+        "key": "B",
+        "text": "Implement a more rigorous approval process for expense claims, including random audits and requiring multiple approvals for significant amounts."
+      },
+      {
+        "key": "C",
+        "text": "Increase the salaries of all department heads to reduce financial pressure."
+      },
+      {
+        "key": "D",
+        "text": "Provide mandatory ethics training for all employees focusing on the moral implications of fraud"
+      }
+    ],
+    "correct_key": "B",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "After a large-scale environmental disaster caused by an oil spill, PetroMax Energy is facing severe scrutiny regarding its operations. The CEO has convened a meeting to re-evaluate their sustainability practices. While they have maintained good profitability (Profit), and their social initiatives (People) for community support are well-regarded, the environmental impact (Planet) of their operations has historically been deprioritized. Given the current crisis, which of the \"three Ps\" of sustainability should PetroMax Energy focus on most immediately to address the impact of the oil spill?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "People, to invest in employee training and internal culture to better align with environmental sustainability goals."
+      },
+      {
+        "key": "B",
+        "text": "Profit, to ensure that the company can financially withstand the backlash and cleanup costs resulting from the oil spill."
+      },
+      {
+        "key": "C",
+        "text": "Planet, to directly address the environmental damage caused and to prevent future incidents."
+      },
+      {
+        "key": "D",
+        "text": "People, to continue strengthening community relations and support for those affected by the spill."
+      }
+    ],
+    "correct_key": "C",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "Daily Fresh, a regional chain of organic grocery stores, is planning to expand its operations into a new city. The expansion plan includes building several new stores and a distribution center. The company is evaluating which of its social responsibilities should take priority in this expansion. Daily Fresh prides itself on its sustainable practices and its commitment to the local communities where it operates. Given the scale and impact of the expansion, which level of corporate social responsibility on the Pyramid of Corporate Social Responsibility devised by Archie B. Carroll should Daily Fresh prioritize to align with its values and the expected social impact of the expansion?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Economic Responsibilities - Prioritizing the economic performance and ensuring the expansion is profitable and sustains business growth."
+      },
+      {
+        "key": "B",
+        "text": "Legal Responsibilities - Ensuring that all aspects of the expansion comply with the city's zoning laws, employment standards, and environmental regulations."
+      },
+      {
+        "key": "C",
+        "text": "Ethical Responsibilities - Focusing on ethical practices, like fair trade and equitable employment, that go beyond legal requirements, to set a standard in the new market."
+      },
+      {
+        "key": "D",
+        "text": "Philanthropic Responsibilities - Engaging in voluntary activities such as contributing to local charities and community projects, enhancing the company’s corporate citizenship in the new city"
+      }
+    ],
+    "correct_key": "C",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "The finance department of a multinational corporation discovered irregularities in their quarterly financial reports. An investigation revealed that the Chief Financial Officer (CFO) intentionally manipulated earnings to meet the expectations of financial analysts and investors, thereby inflating the company's stock price. This manipulation involved recognizing revenues earlier than the standard accounting principles allow and deferring expenses to future periods. Which type of fraud does this scenario best exemplify?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Corruption"
+      },
+      {
+        "key": "B",
+        "text": "Consumer fraud"
+      },
+      {
+        "key": "C",
+        "text": "Asset misappropriation"
+      },
+      {
+        "key": "D",
+        "text": "Earnings management"
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "During a product development meeting at ZMV Corporation, the team faces a decision about whether to use a slightly modified version of a competitor’s software feature, which isn't patented but is a well-recognized signature of the competitor's product. The legal department has confirmed that there are no direct legal impediments to using the feature. What should guide the team's decision-making process in this situation?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The potential to capture the competitor's market share."
+      },
+      {
+        "key": "B",
+        "text": "The immediate financial benefits to the company."
+      },
+      {
+        "key": "C",
+        "text": "The company's desire for competitive parity."
+      },
+      {
+        "key": "D",
+        "text": "The company's principles, values, and ethical norms"
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "George, a senior purchasing manager at CM Tech Inc., is in charge of selecting suppliers for a major component of the company's product. One of the potential suppliers is owned by his sister-in-law. He knows that her company can provide the component at a lower cost, which would improve CM Tech's bottom line. George also acknowledges that his sister-in-law's company meets all technical requirements. What should George do to adhere to professional ethics regarding the conflict of interest?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Avoid telling his supervisor but ensure that the selection process is fair and unbiased."
+      },
+      {
+        "key": "B",
+        "text": "Select his sister-in-law's company to supply the component, since it offers a cost advantage."
+      },
+      {
+        "key": "C",
+        "text": "Select a different supplier to avoid any appearance of a conflict of interest."
+      },
+      {
+        "key": "D",
+        "text": "Inform his supervisor about the familial relationship and ask for the decision to be made by another manager"
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "As the Chief Financial Officer (CFO) of Minerva Tech Inc., Mary has been presented with an attractive business opportunity to acquire a smaller competitor, Sizcom This acquisition promises significant market expansion and cost synergies. However, during the due diligence process, she discovers accounting discrepancies in Sizcome’s financial statements which could be indicative of financial misconduct. Given the potential benefits of the acquisition but mindful of the discovered irregularities, what is the most appropriate action for Mary to ensure she acts with integrity and due diligence?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Proceed with the acquisition, addressing the financial discrepancies post-merger to avoid any disruptions in the market."
+      },
+      {
+        "key": "B",
+        "text": "Advise the board of directors to go ahead with the acquisition, but negotiate a lower price to account for the potential financial risks."
+      },
+      {
+        "key": "C",
+        "text": "Cancel the acquisition immediately based on the potential risks associated with the financial discrepancies."
+      },
+      {
+        "key": "D",
+        "text": "Postpone the acquisition decision and conduct a comprehensive audit of Sizcom’s financial statements to resolve the discrepancies."
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "An internal audit at Btech Solutions Inc. reveals that a procurement officer, Merin, has been favoring a particular supplier, BioEquip, despite there being more cost-effective options available. Merin's decision-making is questioned due to the recent discovery that she shares a close university affiliation with BioEquip’s sales director, and they have been seen at several alumni events together. Considering the IMA's four principles of Honesty, Fairness, Objectivity, and Responsibility in the IMA Statement of Ethical Professional Practice, which of these principles is most directly at risk of being compromised in Merin's professional conduct?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Responsibility, as Merin is not taking appropriate care in her role to provide the best outcome for her employer."
+      },
+      {
+        "key": "B",
+        "text": "Honesty, because favoring a supplier suggests possible deception regarding the supplier’s benefits."
+      },
+      {
+        "key": "C",
+        "text": "Fairness, since not all suppliers are given an equal opportunity to compete for Btech Solutions Inc.'s business."
+      },
+      {
+        "key": "D",
+        "text": "Objectivity, because a personal connection could impair Emily’s impartiality in choosing a supplier"
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "After a confidential executive meeting at Jiotech Inc., where sensitive financial restructuring plans were discussed, one of the managers, Elena, inadvertently mentioned specific details about potential layoffs during a call with an industry analyst. This information was not public and the analyst published the details in a popular tech blog, causing a significant drop in the company's stock price and widespread concern among employees. Which ethical standard of the IMA Statement of Ethical Professional Practice did Elena breach?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Competence"
+      },
+      {
+        "key": "B",
+        "text": "Objectivity"
+      },
+      {
+        "key": "C",
+        "text": "Confidentiality."
+      },
+      {
+        "key": "D",
+        "text": "Professional behavior"
+      }
+    ],
+    "correct_key": "C",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "David John, an accountant at Feel Tech Inc., is instructed by his supervisor to record a significant sale of software to a client in the current quarter, even though the transaction is not expected to be finalized until the next quarter. This instruction is given to artificially inflate the company's earnings for the current quarter to meet financial targets. David is aware that following this instruction would misrepresent the company's financial position. What is the most ethical first response to this situation for David to have?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Ignore the supervisor's request and record the transaction in the correct quarter without consulting anyone."
+      },
+      {
+        "key": "B",
+        "text": "Record the transaction as instructed but anonymously report the action to the company’s ethics hotline."
+      },
+      {
+        "key": "C",
+        "text": "Follow the supervisor's instruction, prioritizing job security and the direct order from a superior."
+      },
+      {
+        "key": "D",
+        "text": "Discuss his concerns directly with the supervisor, explaining the ethical implications and the potential risks to the company and stakeholders."
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "One Touch Inc Innovations, a company dedicated to sustainable technology, recently launched a marketing campaign highlighting its commitment to environmental responsibility. However, an internal audit revealed that the company has been outsourcing part of its production to factories with significant environmental violations. This practice directly contradicts the values stated in One Touch’s corporate culture and publicly advertised commitments. Which of the three basic core values that undergird all others has One Touch Innovations failed to uphold?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Sustainability."
+      },
+      {
+        "key": "B",
+        "text": "Responsibility."
+      },
+      {
+        "key": "C",
+        "text": "Transparency."
+      },
+      {
+        "key": "D",
+        "text": "Integrity."
+      }
+    ],
+    "correct_key": "A",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "Ethical due diligence is necessary in many situations involving business relations with other parties in order to determine whether the other parties’ ethics are sound, whether their values are compatible with the firm’s own, and whether the transaction would pose risks to the reputation of the firm. In which of the following situations is ethical due diligence not an important factor?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "Purchasing."
+      },
+      {
+        "key": "B",
+        "text": "Capital budgeting."
+      },
+      {
+        "key": "C",
+        "text": "Lending."
+      },
+      {
+        "key": "D",
+        "text": "Recruiting."
+      }
+    ],
+    "correct_key": "B",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "Joseph Alex, an IMA member and CFO for a U.S. mining company, is based in a foreign country that is known for its high level of corruption. Joseph was recently approached by an environmental inspector and told that the mining company was in violation of several environmental regulations. The inspector suggested that a way to avoid further trouble was to employ the services of a governmental agency that could help the mining company avoid further environmental issues. Joseph fully understands the corrupt nature of the country he is working in and feels the governmental agency’s services are just a means of extorting money from the company. As a member of the IMA, he understands that authorizing or paying bribes would be unethical as well as a violation of the U.S. Foreign Corrupt Practices Act (FCPA).",
+    "choices": [
+      {
+        "key": "A",
+        "text": "No, because the company is ultimately responsible for the payment, not Joseph."
+      },
+      {
+        "key": "B",
+        "text": "Yes, because Joseph knows the payment is not justified."
+      },
+      {
+        "key": "C",
+        "text": "No, because the agency has legal standing and the mining company does have the option to refuse its services."
+      },
+      {
+        "key": "D",
+        "text": "Yes, because Joseph is party to the payment."
+      }
+    ],
+    "correct_key": "C",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "jerit George, CMA and Certified Fraud Examiner (CFE), is leader of a team reviewing the financial records of CyberRock Networks, a computer-services firm known for its complex accounting. Jerit’s task is to assess the firm’s operational results, including a recent decline in cash flows despite an increase in reported operating income. Jerit must also determine how the firm responds to its strict debt covenants. Lastly, Jerit is to investigate executive management’s compensation packages, including stock options in the firm that are tied to reported profits. The stock options are believed to be quite generous.",
+    "choices": [
+      {
+        "key": "A",
+        "text": "A potential violation of the firm’s debt covenants that must be addressed."
+      },
+      {
+        "key": "B",
+        "text": "The cause of the recent decline in cash flows."
+      },
+      {
+        "key": "C",
+        "text": "Whether executive management’s compensation packages are too generous in comparison with those of other firms in the industry."
+      },
+      {
+        "key": "D",
+        "text": "Whether fraudulent financial reporting may be taking place."
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "IMA members are required to adhere to the IMA Statement of Ethical Professional Practice. According to the IMA Statement of Ethical Professional Practice, credibility",
+    "choices": [
+      {
+        "key": "A",
+        "text": "is communicating information fairly and objectively."
+      },
+      {
+        "key": "B",
+        "text": "involves not disclosing information to individuals who are not authorized to receive the information."
+      },
+      {
+        "key": "C",
+        "text": "is making sure you have the skills, knowledge, qualifications and capacity to do your job effectively."
+      },
+      {
+        "key": "D",
+        "text": "involves adhering to the IMA Statement of Ethical Professional Practice."
+      }
+    ],
+    "correct_key": "A",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "Most observers agree that ethics cannot be merely a compliance requirement, but that it must be embedded within the culture of an organization. Embedding the right culture within an organization starts with making sure the organization has the right the “tone at the top.” A positive tone at the top means",
+    "choices": [
+      {
+        "key": "A",
+        "text": "management fulfills its responsibility to its shareholders."
+      },
+      {
+        "key": "B",
+        "text": "shareholders prefer organizations that are socially responsible."
+      },
+      {
+        "key": "C",
+        "text": "employees complete their tasks efficiently."
+      },
+      {
+        "key": "D",
+        "text": "management communicates policies and procedures which are to be followed at all times, without exception"
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "A “whistleblower hotline” is a system for receiving, retaining, and treating complaints received regarding accounting, internal controls, or auditing matters. It provides a means whereby illegal or improper behavior can be reported anonymously to a person in authority without fear of reprisal. Such a system is mandated by the Sarbanes-Oxley Act and Section 10A of the Securities Exchange Act. All the following are true concerning whistleblower hotlines except",
+    "choices": [
+      {
+        "key": "A",
+        "text": "The allegations may not be true."
+      },
+      {
+        "key": "B",
+        "text": "There are no regulations against people being victimized for reporting illegal or unethical behavior."
+      },
+      {
+        "key": "C",
+        "text": "It is not uncommon for people who do report allegations to be victimized by colleagues or management."
+      },
+      {
+        "key": "D",
+        "text": "The purpose of the whistleblower hotline requirement is to create a structured whistle-blowing framework"
+      }
+    ],
+    "correct_key": "B",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "Jobit Johnson, a CMA, works as a financial analyst for HighLevel Securities LLC. Jobit plays soccer on HighLevel’s soccer team. Recently, the company’s team played the team of a rival firm. During the game, a serious altercation occurred between Jobit and a player from the other team. Jobit was at fault. Luckily, no one was seriously injured; however, the police were called and Jobit was charged with a misdemeanor. Is Jobit’s altercation and arrest a violation of the IMA Statement of Ethical Professional Practice standards concerning integrity and credibility?",
+    "choices": [
+      {
+        "key": "A",
+        "text": "No, because a fight occurring during a soccer game is not a violation of the standards of integrity and credibility."
+      },
+      {
+        "key": "B",
+        "text": "Yes, because Jobit acted unprofessionally and was charged with a misdemeanor."
+      },
+      {
+        "key": "C",
+        "text": "Yes, because Jobit is bound by the IMA Statement of Ethical Professional Practice."
+      },
+      {
+        "key": "D",
+        "text": "No, because no one was injured."
+      }
+    ],
+    "correct_key": "A",
+    "section": "F"
+  },
+  {
+    "topic": "Professional Ethics",
+    "stem": "A values-based organizational culture",
+    "choices": [
+      {
+        "key": "A",
+        "text": "can provide an answer to any ethical dilemma an employee might face."
+      },
+      {
+        "key": "B",
+        "text": "relies on documented policies and procedures covering every possible situation."
+      },
+      {
+        "key": "C",
+        "text": "can work only if all employees share the same values."
+      },
+      {
+        "key": "D",
+        "text": "provides a framework for decision-making when an employee is confronted with an ethical dilemma."
+      }
+    ],
+    "correct_key": "D",
+    "section": "F"
+  }
+]
