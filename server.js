@@ -313,7 +313,7 @@ app.post("/api/exam/:token/start", async (req, res) => {
     const tok = await resolveToken(req.params.token);
     if (!tok) return jsonError(res, 403, "invalid_or_expired_token");
 
-    const { guest_name, guest_email } = req.body || {};
+    const { guest_name, guest_email, guest_phone, guest_institute } = req.body || {};
 
     const { data: exam, error: examErr } = await supabase
       .from("mock_exams")
@@ -331,7 +331,12 @@ app.post("/api/exam/:token/start", async (req, res) => {
         guest_name: guest_name || null,
         guest_email: guest_email || null,
         pass_threshold: exam.pass_threshold,
-        metadata: { source: "standalone", token: req.params.token },
+        metadata: {
+          source: "standalone",
+          token: req.params.token,
+          phone: guest_phone || null,
+          institute: guest_institute || null,
+        },
       })
       .select("id")
       .single();
@@ -560,7 +565,7 @@ app.get("/api/admin/exam/:token/attempts", async (req, res) => {
 
     const { data: attempts } = await supabase
       .from("mock_attempts")
-      .select("id, state, guest_name, guest_email, mcq_score, total_score, started_at, submitted_at, completed_at")
+      .select("id, state, guest_name, guest_email, mcq_score, total_score, started_at, submitted_at, completed_at, metadata")
       .eq("access_token_id", tok.id)
       .order("started_at", { ascending: false });
 
@@ -820,7 +825,7 @@ app.get("/api/exam/:token/results/:attemptId", async (req, res) => {
 
     const { data: att } = await supabase
       .from("mock_attempts")
-      .select("id, state, guest_name, mcq_score, essay_score, total_score, started_at, submitted_at, pass_threshold")
+      .select("id, state, guest_name, guest_email, mcq_score, essay_score, total_score, started_at, submitted_at, pass_threshold, metadata")
       .eq("id", attemptId)
       .eq("access_token_id", tok.id)
       .single();
@@ -828,7 +833,7 @@ app.get("/api/exam/:token/results/:attemptId", async (req, res) => {
 
     const { data: exam } = await supabase
       .from("mock_exams")
-      .select("title, mcq_count, essay_count")
+      .select("title, slug, mcq_count, essay_count")
       .eq("id", tok.exam_id)
       .single();
 
@@ -887,7 +892,12 @@ app.get("/api/exam/:token/results/:attemptId", async (req, res) => {
     res.json({
       ok: true,
       exam_title: exam?.title || "Exam",
+      exam_slug: exam?.slug || "",
+      label: tok.label || null,
       candidate_name: att.guest_name,
+      candidate_email: att.guest_email,
+      candidate_phone: att.metadata?.phone || null,
+      candidate_institute: att.metadata?.institute || null,
       state: att.state,
       mcq_score: att.mcq_score,
       essay_score: att.essay_score,
