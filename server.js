@@ -905,6 +905,45 @@ app.get("/api/exam/:token/results/:attemptId", async (req, res) => {
   }
 });
 
+// Admin: delete specific attempts and all related data
+app.post("/api/admin/exam/:token/delete-attempts", async (req, res) => {
+  try {
+    const tok = await resolveToken(req.params.token);
+    if (!tok) return jsonError(res, 403, "invalid_or_expired_token");
+
+    const { attempt_ids } = req.body;
+    if (!Array.isArray(attempt_ids) || attempt_ids.length === 0) {
+      return jsonError(res, 400, "attempt_ids_required");
+    }
+
+    // Verify all attempts belong to this token
+    const { data: attempts } = await supabase
+      .from("mock_attempts")
+      .select("id")
+      .eq("access_token_id", tok.id)
+      .in("id", attempt_ids);
+
+    const validIds = (attempts || []).map((a) => a.id);
+    if (validIds.length === 0) return jsonError(res, 404, "no_valid_attempts");
+
+    // Delete in order: essay_submissions → mcq_responses → mock_attempts
+    await supabase.from("essay_submissions").delete().in("attempt_id", validIds);
+    await supabase.from("mcq_responses").delete().in("attempt_id", validIds);
+    await supabase.from("mock_attempts").delete().in("id", validIds);
+
+    // Decrement used_count on token
+    await supabase
+      .from("exam_access_tokens")
+      .update({ used_count: Math.max(0, (tok.used_count || 0) - validIds.length) })
+      .eq("id", tok.id);
+
+    res.json({ ok: true, deleted: validIds.length });
+  } catch (e) {
+    console.error(e);
+    return jsonError(res, 500, "delete_failed", String(e?.message || e));
+  }
+});
+
 // ---- start ----
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API listening on http://0.0.0.0:${PORT}`);
