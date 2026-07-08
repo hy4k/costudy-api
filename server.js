@@ -4,6 +4,18 @@ import cors from "cors";
 import OpenAI from "openai";
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
+import {
+  sanitizeText,
+  isNoisyChunk,
+  createLruCache,
+  hashKey,
+  classifyOpenAIError,
+  expandQuery,
+  buildContextBlock,
+  safeHistory,
+  createRateLimiter,
+  parseMcqFromChunk,
+} from "./lib/ragEngine.js";
 
 const app = express();
 
@@ -15,32 +27,36 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY || "";
 
 const EMBED_MODEL = process.env.EMBED_MODEL || "text-embedding-3-small"; // 1536 dims
-const CHAT_MODEL = process.env.CHAT_MODEL || "gpt-4.1-mini";
+const CHAT_MODEL = process.env.CHAT_MODEL || "gpt-4o-mini";
+const CHAT_MODEL_FALLBACK = process.env.CHAT_MODEL_FALLBACK || "gpt-4.1-mini";
 const CLAUDE_MODEL = process.env.CLAUDE_MODEL || "claude-sonnet-4-20250514";
 
-const DEFAULT_MATCH_THRESHOLD = Number(process.env.MATCH_THRESHOLD || 0.75);
-const DEFAULT_TOPK = Number(process.env.TOPK || 10);
+// 0.55 recall-friendly; was 0.75 (often returned empty on partial matches)
+const DEFAULT_MATCH_THRESHOLD = Number(process.env.MATCH_THRESHOLD || 0.55);
+const DEFAULT_TOPK = Number(process.env.TOPK || 8);
 
 // ---- required env checks (fail fast) ----
 if (!SUPABASE_URL) throw new Error("Missing SUPABASE_URL");
 if (!SUPABASE_SERVICE_ROLE_KEY) throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY");
 if (!OPENAI_API_KEY) throw new Error("Missing OPENAI_API_KEY");
-if (!ANTHROPIC_API_KEY) console.warn("⚠️  ANTHROPIC_API_KEY not set — essay grading disabled");
+if (!ANTHROPIC_API_KEY) console.warn("⚠️  ANTHROPIC_API_KEY not set — essay grading / chat fallback limited");
 
 // ---- middleware ----
-app.use(express.json({ limit: "2mb" })); // chat requests can be large
+app.use(express.json({ limit: "2mb" }));
 
-// Simple request log
 app.use((req, _res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// CORS: add domains you will use
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:5173",
   "https://costudy.in",
   "https://www.costudy.in",
 ];
@@ -48,16 +64,35 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, cb) => {
-      // allow non-browser tools with no origin
       if (!origin) return cb(null, true);
       if (allowedOrigins.includes(origin)) return cb(null, true);
       return cb(new Error(`CORS blocked for origin: ${origin}`));
     },
     methods: ["GET", "POST", "PUT", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Admin-Key"],
     credentials: true,
   })
 );
+
+// Rate limit AI routes (per IP)
+const aiRateLimit = createRateLimiter({
+  windowMs: Number(process.env.AI_RATE_WINDOW_MS || 60_000),
+  max: Number(process.env.AI_RATE_MAX || 40),
+});
+
+function enforceAiRateLimit(req, res) {
+  const ip = req.headers["x-forwarded-for"]?.toString().split(",")[0]?.trim() || req.ip;
+  const result = aiRateLimit(ip);
+  if (!result.ok) {
+    res.status(429).json({
+      ok: false,
+      error: "rate_limited",
+      details: `Too many AI requests. Retry in ${Math.ceil((result.retryAfterMs || 60000) / 1000)}s.`,
+    });
+    return false;
+  }
+  return true;
+}
 
 // ---- clients ----
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
@@ -69,65 +104,65 @@ const anthropic = ANTHROPIC_API_KEY
   ? new Anthropic({ apiKey: ANTHROPIC_API_KEY })
   : null;
 
-// ---- helpers ----
-function sanitizeText(s) {
-  // remove nulls + control chars (prevents Supabase text errors + weird PDFs)
-  return String(s || "")
-    .replace(/\u0000/g, "")
-    .replace(/[\u0001-\u001F\u007F]/g, " ")
-    .replace(/[ \t]+/g, " ")
-    .trim();
+const embedCache = createLruCache(Number(process.env.EMBED_CACHE_SIZE || 300));
+
+function jsonError(res, status, message, details) {
+  return res.status(status).json({ ok: false, error: message, details });
 }
 
-// Basic “noise” filters for your corpus
-function isNoisyChunk(content) {
-  const c = (content || "").toLowerCase();
-  if (!c) return true;
-  if (c.includes("t.me/")) return true;
-  if (c.includes("telegram.me")) return true;
-  if (c.includes("whatsapp")) return true;
-
-  // If a chunk is mostly non-latin, drop it (filters Arabic spam pages)
-  // Keep it loose to avoid removing legit math/financial symbols.
-  const letters = c.match(/[a-z]/g)?.length || 0;
-  const nonLatin = c.match(/[^\x00-\x7F]/g)?.length || 0;
-  if (letters < 20 && nonLatin > 80) return true;
-
-  return false;
+function requireAdmin(req, res) {
+  if (!ADMIN_API_KEY) {
+    jsonError(res, 503, "admin_disabled", "Set ADMIN_API_KEY on the API host to enable admin routes.");
+    return false;
+  }
+  const key = req.headers["x-admin-key"] || req.headers["authorization"]?.replace(/^Bearer\s+/i, "");
+  if (key !== ADMIN_API_KEY) {
+    jsonError(res, 401, "unauthorized");
+    return false;
+  }
+  return true;
 }
 
 async function embedOne(text) {
   const clean = sanitizeText(text).slice(0, 8000);
+  const key = hashKey(`${EMBED_MODEL}:${clean}`);
+  const cached = embedCache.get(key);
+  if (cached) return cached;
+
   const resp = await openai.embeddings.create({
     model: EMBED_MODEL,
     input: clean,
   });
-  return resp.data[0].embedding;
+  const embedding = resp.data[0].embedding;
+  embedCache.set(key, embedding);
+  return embedding;
 }
 
-async function retrieveContext({ queryEmbedding, topK = DEFAULT_TOPK, threshold = DEFAULT_MATCH_THRESHOLD, filterDoc = null }) {
-  // Try calling match_documents with filter_document_id if your function supports it.
-  // If not, fallback to calling without it.
+async function retrieveContext({
+  queryEmbedding,
+  topK = DEFAULT_TOPK,
+  threshold = DEFAULT_MATCH_THRESHOLD,
+  filterDoc = null,
+  chunkType = null,
+}) {
   let data, error;
 
   const payloadWithFilter = {
     query_embedding: queryEmbedding,
     match_threshold: threshold,
-    match_count: topK,
+    match_count: Math.max(topK * 2, topK), // over-fetch then filter
     filter_document_id: filterDoc,
   };
 
   const payloadNoFilter = {
     query_embedding: queryEmbedding,
     match_threshold: threshold,
-    match_count: topK,
+    match_count: Math.max(topK * 2, topK),
   };
 
-  // Attempt with filter first only if filterDoc is provided
   if (filterDoc) {
     ({ data, error } = await supabase.rpc("match_documents", payloadWithFilter));
     if (error) {
-      // If function does not accept filter_document_id, retry without it
       const msg = String(error.message || "");
       if (msg.includes("filter_document_id") || msg.includes("does not exist")) {
         ({ data, error } = await supabase.rpc("match_documents", payloadNoFilter));
@@ -139,44 +174,91 @@ async function retrieveContext({ queryEmbedding, topK = DEFAULT_TOPK, threshold 
 
   if (error) throw error;
 
-  const cleaned = (data || []).filter((r) => !isNoisyChunk(r.content));
-  return cleaned;
-}
-
-function buildContextBlock(hits, maxChars = 12000) {
-  // avoid dumping enormous context to model
-  let out = "";
-  for (const h of hits) {
-    const piece =
-      `SOURCE: ${h.document_id} | page:${h.page_number} | chunk:${h.chunk_index}\n` +
-      `${sanitizeText(h.content)}\n\n---\n\n`;
-
-    if (out.length + piece.length > maxChars) break;
-    out += piece;
+  let cleaned = (data || []).filter((r) => !isNoisyChunk(r.content));
+  if (chunkType) {
+    const typed = cleaned.filter((r) => r.chunk_type === chunkType);
+    if (typed.length > 0) cleaned = typed;
   }
-  return out.trim();
+  return cleaned.slice(0, topK);
 }
 
-function safeHistory(history) {
-  if (!Array.isArray(history)) return [];
-  // keep last 12 messages, sanitize content
-  return history.slice(-12).map((m) => ({
-    role: m.role === "user" ? "user" : "assistant",
-    content: sanitizeText(m.content || "").slice(0, 2000),
-  }));
-}
+async function chatComplete(messages, { temperature = 0.3 } = {}) {
+  const models = [CHAT_MODEL, CHAT_MODEL_FALLBACK].filter(
+    (m, i, arr) => m && arr.indexOf(m) === i
+  );
 
-function jsonError(res, status, message, details) {
-  return res.status(status).json({ ok: false, error: message, details });
+  let lastErr;
+  for (const model of models) {
+    try {
+      const completion = await openai.chat.completions.create({
+        model,
+        messages,
+        temperature,
+      });
+      return {
+        content: completion.choices?.[0]?.message?.content || "",
+        model,
+        provider: "openai",
+      };
+    } catch (e) {
+      lastErr = e;
+      const cls = classifyOpenAIError(e);
+      if (cls.code === "openai_quota" || cls.code === "openai_auth") break;
+    }
+  }
+
+  // Anthropic fallback for chat (not embeddings)
+  if (anthropic) {
+    try {
+      const system = messages.filter((m) => m.role === "system").map((m) => m.content).join("\n\n");
+      const nonSystem = messages
+        .filter((m) => m.role !== "system")
+        .map((m) => ({
+          role: m.role === "assistant" ? "assistant" : "user",
+          content: m.content,
+        }));
+      const resp = await anthropic.messages.create({
+        model: CLAUDE_MODEL,
+        max_tokens: 2048,
+        system: system || "You are a CMA US tutor.",
+        messages: nonSystem.length ? nonSystem : [{ role: "user", content: "Hello" }],
+      });
+      const text = (resp.content || [])
+        .filter((c) => c.type === "text")
+        .map((c) => c.text)
+        .join("\n");
+      return { content: text, model: CLAUDE_MODEL, provider: "anthropic" };
+    } catch (e) {
+      console.error("Anthropic fallback failed:", e?.message || e);
+    }
+  }
+
+  throw lastErr || new Error("chat_failed");
 }
 
 // ---- routes ----
-app.get("/health", (_req, res) => res.json({ ok: true, env: NODE_ENV }));
+app.get("/health", (_req, res) => {
+  res.json({
+    ok: true,
+    env: NODE_ENV,
+    engine: {
+      embed_model: EMBED_MODEL,
+      chat_model: CHAT_MODEL,
+      chat_fallback: CHAT_MODEL_FALLBACK,
+      match_threshold: DEFAULT_MATCH_THRESHOLD,
+      topk: DEFAULT_TOPK,
+      embed_cache_size: embedCache.size(),
+      anthropic: Boolean(anthropic),
+      admin_routes: Boolean(ADMIN_API_KEY),
+    },
+  });
+});
 
-// Optional: raw vector search endpoint (useful to debug frontend)
+// Raw vector search (library vault / debug) — single embed path
 app.post("/api/search", async (req, res) => {
+  if (!enforceAiRateLimit(req, res)) return;
   try {
-    const { query, topK, threshold, filterDoc } = req.body || {};
+    const { query, topK, threshold, filterDoc, chunkType } = req.body || {};
     if (!query || typeof query !== "string") return jsonError(res, 400, "query required");
 
     const qEmbed = await embedOne(query);
@@ -185,6 +267,7 @@ app.post("/api/search", async (req, res) => {
       topK: typeof topK === "number" ? topK : DEFAULT_TOPK,
       threshold: typeof threshold === "number" ? threshold : DEFAULT_MATCH_THRESHOLD,
       filterDoc: typeof filterDoc === "string" ? filterDoc : null,
+      chunkType: typeof chunkType === "string" ? chunkType : null,
     });
 
     res.json({
@@ -193,19 +276,27 @@ app.post("/api/search", async (req, res) => {
         document_id: h.document_id,
         page_number: h.page_number,
         chunk_index: h.chunk_index,
+        chunk_type: h.chunk_type || null,
+        question_no: h.question_no || null,
         similarity: h.similarity,
         content: h.content,
       })),
     });
   } catch (e) {
     console.error(e);
-    return jsonError(res, 500, "search error", String(e?.message || e));
+    const cls = classifyOpenAIError(e);
+    return jsonError(res, cls.status, cls.code === "openai_error" ? "search error" : cls.code, cls.details || cls.message);
   }
 });
 
+/**
+ * Single-call CMA tutor (embed → retrieve → answer).
+ * Frontend should call ONLY this for chat — do not pre-call /api/search.
+ */
 app.post("/api/ask-cma", async (req, res) => {
+  if (!enforceAiRateLimit(req, res)) return;
   try {
-    const { message, subject, mode, history, activeContext, filterDoc } = req.body || {};
+    const { message, subject, mode, history, activeContext, filterDoc, skipRag } = req.body || {};
 
     if (!message || typeof message !== "string") {
       return jsonError(res, 400, "message required");
@@ -214,81 +305,310 @@ app.post("/api/ask-cma", async (req, res) => {
     const userMsg = sanitizeText(message);
     if (userMsg.length < 2) return jsonError(res, 400, "message too short");
 
-    // 1) embed question
-    const qEmbed = await embedOne(userMsg);
+    const hist = safeHistory(history);
+    const searchQuery = expandQuery(userMsg, hist);
 
-    // 2) retrieve context
-    const hits = await retrieveContext({
-      queryEmbedding: qEmbed,
-      topK: DEFAULT_TOPK,
-      threshold: DEFAULT_MATCH_THRESHOLD,
-      filterDoc: typeof filterDoc === "string" ? filterDoc : null,
-    });
+    let hits = [];
+    let contextBlock = "";
+    let ragDegraded = false;
 
-    const contextBlock = buildContextBlock(hits, 12000);
+    if (!skipRag) {
+      try {
+        const qEmbed = await embedOne(searchQuery);
+        hits = await retrieveContext({
+          queryEmbedding: qEmbed,
+          topK: DEFAULT_TOPK,
+          threshold: DEFAULT_MATCH_THRESHOLD,
+          filterDoc: typeof filterDoc === "string" ? filterDoc : null,
+        });
+        contextBlock = buildContextBlock(hits, 10000);
+      } catch (embedErr) {
+        const cls = classifyOpenAIError(embedErr);
+        // If embeddings are quota-blocked but Anthropic chat is available, degrade gracefully
+        if ((cls.code === "openai_quota" || cls.code === "openai_auth") && anthropic) {
+          console.warn("[ask-cma] RAG degraded (embed failed):", cls.code);
+          ragDegraded = true;
+        } else {
+          throw embedErr;
+        }
+      }
+    }
 
     const systemLines = [
-      "You are a CMA US tutor. Be accurate and exam-focused.",
-      "If you use retrieved sources, cite them exactly as: [doc | page | chunk].",
+      "You are a CMA US (Certified Management Accountant) tutor. Be accurate, exam-focused, and clear.",
+      "Prefer retrieved library sources over general knowledge when they conflict.",
+      "Cite sources as: [document | page | chunk].",
+      "Use short paragraphs and bullets when teaching. Show formulas when relevant.",
       subject ? `Subject focus: ${sanitizeText(subject).slice(0, 80)}` : "",
-      mode === "VAULT_REF" ? "Use the library sources heavily." : "",
+      mode === "VAULT_REF" ? "Prioritize vault/library sources heavily; if empty, say so." : "",
       mode === "FOLLOW_UP" && activeContext
         ? `Active study context:\n${sanitizeText(activeContext).slice(0, 2000)}`
         : "",
-      "If you are unsure, say so and ask a single clarifying question.",
+      "If you are unsure, say so and ask one clarifying question.",
+      ragDegraded
+        ? "Library Context: (temporarily unavailable — answer from CMA fundamentals; note that vault retrieval is offline)."
+        : contextBlock
+          ? `Library Context:\n${contextBlock}`
+          : "Library Context: (no high-confidence matches — answer carefully from CMA fundamentals and state uncertainty).",
     ].filter(Boolean);
 
-    const sys = systemLines.join("\n");
-
     const messages = [
-      { role: "system", content: `${sys}\n\nLibrary Context:\n${contextBlock}` },
-      ...safeHistory(history),
+      { role: "system", content: systemLines.join("\n\n") },
+      ...hist,
       { role: "user", content: userMsg.slice(0, 4000) },
     ];
 
-    // 3) chat completion
-    const completion = await openai.chat.completions.create({
-      model: CHAT_MODEL,
-      messages,
-      temperature: 0.3,
-    });
-
-    const answer = completion.choices?.[0]?.message?.content || "No answer.";
+    const result = await chatComplete(messages, { temperature: 0.25 });
 
     res.json({
       ok: true,
-      answer,
+      answer: result.content || "No answer.",
+      model: result.model,
+      provider: result.provider,
+      search_query: searchQuery,
+      rag_degraded: ragDegraded,
       sources: hits.map((h) => ({
         document_id: h.document_id,
         page_number: h.page_number,
         chunk_index: h.chunk_index,
+        chunk_type: h.chunk_type || null,
         similarity: h.similarity,
       })),
     });
   } catch (e) {
     console.error(e);
-    return jsonError(res, 500, "AI backend error", String(e?.message || e));
+    const cls = classifyOpenAIError(e);
+    return jsonError(res, cls.status, cls.code === "openai_error" ? "AI backend error" : cls.code, cls.message);
   }
 });
 
 app.post("/api/summarize", async (req, res) => {
+  if (!enforceAiRateLimit(req, res)) return;
   try {
     const { text } = req.body || {};
     if (!text || typeof text !== "string") return jsonError(res, 400, "text required");
 
-    const completion = await openai.chat.completions.create({
-      model: CHAT_MODEL,
-      messages: [
-        { role: "system", content: "Summarize into 3-5 crisp bullet points for CMA exam prep." },
+    const result = await chatComplete(
+      [
+        { role: "system", content: "Summarize into 3-5 crisp bullet points for CMA exam prep. No fluff." },
         { role: "user", content: sanitizeText(text).slice(0, 12000) },
       ],
-      temperature: 0.2,
-    });
+      { temperature: 0.2 }
+    );
 
-    res.json({ ok: true, summary: completion.choices?.[0]?.message?.content || "" });
+    res.json({ ok: true, summary: result.content || "" });
   } catch (e) {
     console.error(e);
-    return jsonError(res, 500, "summarize error", String(e?.message || e));
+    const cls = classifyOpenAIError(e);
+    return jsonError(res, cls.status, cls.code === "openai_error" ? "summarize error" : cls.code, cls.message);
+  }
+});
+
+/** Essay evaluation used by AI Deck */
+app.post("/api/essay/evaluate", async (req, res) => {
+  if (!enforceAiRateLimit(req, res)) return;
+  try {
+    const { essay, topic, subject } = req.body || {};
+    if (!essay || typeof essay !== "string") return jsonError(res, 400, "essay required");
+
+    const userMsg = sanitizeText(essay).slice(0, 12000);
+    let hits = [];
+    try {
+      const qEmbed = await embedOne(`${subject || ""} ${topic || ""} essay grading CMA`);
+      hits = await retrieveContext({
+        queryEmbedding: qEmbed,
+        topK: 6,
+        threshold: DEFAULT_MATCH_THRESHOLD,
+        chunkType: "essay",
+      });
+    } catch (e) {
+      console.warn("essay RAG optional failed", e?.message || e);
+    }
+
+    const contextBlock = buildContextBlock(hits, 6000);
+    const result = await chatComplete(
+      [
+        {
+          role: "system",
+          content: [
+            "You are a CMA essay grader. Score 0-100 with a short rubric:",
+            "Structure, Technical accuracy, Completeness, Professional writing.",
+            "Give: Overall score, strengths, gaps, and a model outline.",
+            subject ? `Subject: ${sanitizeText(subject).slice(0, 80)}` : "",
+            topic ? `Topic: ${sanitizeText(topic).slice(0, 150)}` : "",
+            contextBlock ? `Reference material:\n${contextBlock}` : "",
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        },
+        { role: "user", content: userMsg },
+      ],
+      { temperature: 0.2 }
+    );
+
+    res.json({ ok: true, evaluation: result.content || "", sources: hits.length });
+  } catch (e) {
+    console.error(e);
+    const cls = classifyOpenAIError(e);
+    return jsonError(res, cls.status, cls.code === "openai_error" ? "essay_eval_error" : cls.code, cls.message);
+  }
+});
+
+/**
+ * Practice MCQs from vault.
+ * 1) Prefer practice_question_bank table if present
+ * 2) Fall back to vector search of content_chunks (mcq_question type when possible)
+ */
+app.post("/api/mcq/practice", async (req, res) => {
+  if (!enforceAiRateLimit(req, res)) return;
+  try {
+    const { topic = "", count = 5 } = req.body || {};
+    const n = Math.min(Math.max(Number(count) || 5, 1), 20);
+    const topicClean = sanitizeText(topic).slice(0, 120);
+
+    // Path A: structured bank
+    try {
+      let q = supabase.from("practice_question_bank").select("id,stem,choices,correct_key,explanation,topic,difficulty,source_document").eq("is_active", true).limit(n * 3);
+      if (topicClean) q = q.ilike("topic", `%${topicClean}%`);
+      const { data: bank, error } = await q;
+      if (!error && bank?.length) {
+        const shuffled = [...bank].sort(() => Math.random() - 0.5).slice(0, n);
+        return res.json({
+          ok: true,
+          source: "practice_question_bank",
+          questions: shuffled.map((row) => ({
+            id: row.id,
+            content: `${row.stem}\n${(row.choices || []).map((c) => `${c.key}. ${c.text}`).join("\n")}`,
+            stem: row.stem,
+            choices: row.choices,
+            correct_key: row.correct_key,
+            explanation: row.explanation,
+            topic: row.topic,
+            question_no: null,
+          })),
+          answers: shuffled.map((row) => ({
+            content: `Answer: ${row.correct_key}${row.explanation ? ` — ${row.explanation}` : ""}`,
+            question_no: null,
+          })),
+        });
+      }
+    } catch (e) {
+      // table may not exist yet
+    }
+
+    // Path B: RAG over content_chunks
+    const qEmbed = await embedOne(topicClean || "CMA multiple choice practice question");
+    const hits = await retrieveContext({
+      queryEmbedding: qEmbed,
+      topK: n * 2,
+      threshold: Math.min(DEFAULT_MATCH_THRESHOLD, 0.5),
+      chunkType: "mcq_question",
+    });
+
+    const questions = [];
+    for (const h of hits) {
+      const parsed = parseMcqFromChunk(h.content);
+      if (parsed.length) {
+        for (const p of parsed) {
+          questions.push({
+            id: `${h.document_id}-${h.chunk_index}-${questions.length}`,
+            content: `${p.stem}\n${p.choices.map((c) => `${c.key}. ${c.text}`).join("\n")}`,
+            stem: p.stem,
+            choices: p.choices,
+            correct_key: p.correct_key,
+            question_no: p.question_no || h.question_no || null,
+            document_id: h.document_id,
+          });
+        }
+      } else {
+        questions.push({
+          id: `${h.document_id}-${h.chunk_index}`,
+          content: sanitizeText(h.content).slice(0, 2500),
+          question_no: h.question_no || null,
+          document_id: h.document_id,
+        });
+      }
+      if (questions.length >= n) break;
+    }
+
+    res.json({
+      ok: true,
+      source: "content_chunks_rag",
+      questions: questions.slice(0, n),
+      answers: [],
+    });
+  } catch (e) {
+    console.error(e);
+    const cls = classifyOpenAIError(e);
+    return jsonError(res, cls.status, cls.code === "openai_error" ? "mcq_practice_error" : cls.code, cls.message);
+  }
+});
+
+/**
+ * Admin: scan content_chunks and upsert parsed MCQs into practice_question_bank.
+ * Requires ADMIN_API_KEY header X-Admin-Key and table from sql/practice_question_bank.sql
+ */
+app.post("/api/admin/question-bank/extract", async (req, res) => {
+  if (!requireAdmin(req, res)) return;
+  try {
+    const limit = Math.min(Number(req.body?.limit) || 200, 1000);
+    const offset = Math.max(Number(req.body?.offset) || 0, 0);
+    const dryRun = Boolean(req.body?.dryRun);
+
+    const { data: chunks, error } = await supabase
+      .from("content_chunks")
+      .select("id,document_id,page_number,chunk_type,question_no,content")
+      .or("chunk_type.eq.mcq_question,chunk_type.eq.mcq_answer,content.ilike.%A.%")
+      .range(offset, offset + limit - 1);
+
+    if (error) return jsonError(res, 500, "chunk_fetch_failed", error.message);
+
+    const extracted = [];
+    for (const ch of chunks || []) {
+      const items = parseMcqFromChunk(ch.content);
+      for (const item of items) {
+        if (!item.stem || !item.choices?.length) continue;
+        extracted.push({
+          stem: item.stem,
+          choices: item.choices,
+          correct_key: item.correct_key,
+          explanation: item.explanation,
+          topic: null,
+          difficulty: "medium",
+          source_chunk_id: ch.id,
+          source_document: ch.document_id,
+          question_no: item.question_no || ch.question_no,
+          is_active: true,
+          metadata: { page_number: ch.page_number, chunk_type: ch.chunk_type },
+        });
+      }
+    }
+
+    if (dryRun) {
+      return res.json({ ok: true, dryRun: true, scanned: chunks?.length || 0, extracted: extracted.length, sample: extracted.slice(0, 3) });
+    }
+
+    let inserted = 0;
+    for (let i = 0; i < extracted.length; i += 50) {
+      const batch = extracted.slice(i, i + 50);
+      const { error: insErr, count } = await supabase
+        .from("practice_question_bank")
+        .upsert(batch, { onConflict: "source_chunk_id,stem", ignoreDuplicates: true, count: "exact" });
+      if (insErr) {
+        // fallback plain insert ignoring dupes
+        const { error: ins2 } = await supabase.from("practice_question_bank").insert(batch);
+        if (ins2) {
+          console.warn("insert batch error", ins2.message);
+          continue;
+        }
+      }
+      inserted += batch.length;
+    }
+
+    res.json({ ok: true, scanned: chunks?.length || 0, extracted: extracted.length, inserted });
+  } catch (e) {
+    console.error(e);
+    return jsonError(res, 500, "extract_failed", String(e?.message || e));
   }
 });
 
