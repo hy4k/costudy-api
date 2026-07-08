@@ -310,16 +310,28 @@ app.post("/api/ask-cma", async (req, res) => {
 
     let hits = [];
     let contextBlock = "";
+    let ragDegraded = false;
 
     if (!skipRag) {
-      const qEmbed = await embedOne(searchQuery);
-      hits = await retrieveContext({
-        queryEmbedding: qEmbed,
-        topK: DEFAULT_TOPK,
-        threshold: DEFAULT_MATCH_THRESHOLD,
-        filterDoc: typeof filterDoc === "string" ? filterDoc : null,
-      });
-      contextBlock = buildContextBlock(hits, 10000);
+      try {
+        const qEmbed = await embedOne(searchQuery);
+        hits = await retrieveContext({
+          queryEmbedding: qEmbed,
+          topK: DEFAULT_TOPK,
+          threshold: DEFAULT_MATCH_THRESHOLD,
+          filterDoc: typeof filterDoc === "string" ? filterDoc : null,
+        });
+        contextBlock = buildContextBlock(hits, 10000);
+      } catch (embedErr) {
+        const cls = classifyOpenAIError(embedErr);
+        // If embeddings are quota-blocked but Anthropic chat is available, degrade gracefully
+        if ((cls.code === "openai_quota" || cls.code === "openai_auth") && anthropic) {
+          console.warn("[ask-cma] RAG degraded (embed failed):", cls.code);
+          ragDegraded = true;
+        } else {
+          throw embedErr;
+        }
+      }
     }
 
     const systemLines = [
@@ -333,9 +345,11 @@ app.post("/api/ask-cma", async (req, res) => {
         ? `Active study context:\n${sanitizeText(activeContext).slice(0, 2000)}`
         : "",
       "If you are unsure, say so and ask one clarifying question.",
-      contextBlock
-        ? `Library Context:\n${contextBlock}`
-        : "Library Context: (no high-confidence matches — answer carefully from CMA fundamentals and state uncertainty).",
+      ragDegraded
+        ? "Library Context: (temporarily unavailable — answer from CMA fundamentals; note that vault retrieval is offline)."
+        : contextBlock
+          ? `Library Context:\n${contextBlock}`
+          : "Library Context: (no high-confidence matches — answer carefully from CMA fundamentals and state uncertainty).",
     ].filter(Boolean);
 
     const messages = [
@@ -352,6 +366,7 @@ app.post("/api/ask-cma", async (req, res) => {
       model: result.model,
       provider: result.provider,
       search_query: searchQuery,
+      rag_degraded: ragDegraded,
       sources: hits.map((h) => ({
         document_id: h.document_id,
         page_number: h.page_number,
