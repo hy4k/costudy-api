@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "extract-bank": "node scripts/extract-question-bank.mjs",
+    "extract-bank:dry": "node scripts/extract-question-bank.mjs --dry-run"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
